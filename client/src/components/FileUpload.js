@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { uploadFile } from "../actions";
-import { Link } from "react-router-dom";
 
 const FileUpload = (props) => {
   const [file, setFile] = useState("");

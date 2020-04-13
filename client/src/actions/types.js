@@ -1,0 +1,4 @@
+export const UPLOAD_FILE = "UPLOAD_FILE";
+export const TOTAL_AMOUNT = "TOTAL_AMOUNT";
+export const SPENT_BY_DAY = "SPENT_BY_DAY";
+export const SHOPS_DISTRIBUTION = "SHOPS_DISTRIBUTION";

@@ -11,6 +11,12 @@ const WelcomePage = () => {
       <Link to="/amount" className="ui button primary">
         Get amount data
       </Link>
+      <Link to="/amount_spent_bar_chart" className="ui button primary">
+        Show amount spent bar chart
+      </Link>
+      <Link to="/shops_distribution" className="ui button primary">
+        Show shops dist
+      </Link>
     </div>
   );
 };

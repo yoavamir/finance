@@ -1,7 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { getTotalAmount } from "../actions";
-import BarChart from "react-bar-chart";
 
 const TotalAmountSpent = (props) => {
   const handleOnClick = (e) => {
@@ -9,41 +8,16 @@ const TotalAmountSpent = (props) => {
     props.getTotalAmount(props.filename);
   };
 
-  const BuildDataForBarChart = () => {
-    let newData = [];
-    props.totalAmount[props.filename].dateAndAmount.map((date) => {
-      newData.push({ text: date[0], value: date[1] });
-    });
-    return newData;
-  };
-
   const renderAmount = () => {
-    if (!props.totalAmount[props.filename]) {
+    if (!props.fileActions[props.filename]) {
       return <div>Loading..</div>;
     }
     return (
       <div className="ui divider">
-        <div>spent {props.totalAmount[props.filename].spent} NIS</div>
+        <div>
+          spent {Math.round(props.fileActions[props.filename].spent)} NIS
+        </div>
         <div className="ui celled list"></div>
-      </div>
-    );
-  };
-
-  const margin = { top: 20, right: 20, bottom: 30, left: 40 };
-
-  const renderBarGraph = () => {
-    if (!props.totalAmount[props.filename]) {
-      return <div></div>;
-    }
-    return (
-      <div>
-        <BarChart
-          ylabel="amount spent"
-          height={500}
-          data={BuildDataForBarChart()}
-          width={1000}
-          margin={margin}
-        />
       </div>
     );
   };
@@ -59,16 +33,14 @@ const TotalAmountSpent = (props) => {
         Get Total Amount
       </button>
       {renderAmount()}
-      <br></br>
-      {renderBarGraph()}
     </div>
   );
 };
 
 const mapStateToProps = (state) => {
   return {
-    totalAmount: state.totalAmount,
-    filename: state.file.file_name,
+    fileActions: state.fileActions,
+    filename: state.fileActions.currentFile,
   };
 };
 

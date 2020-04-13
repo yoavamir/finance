@@ -5,6 +5,8 @@ import TotalAmountSpent from "./TotalAmountSpent";
 import FileUpload from "./FileUpload";
 import WelcomePage from "./WelcomePage";
 import Header from "./Header";
+import amountSpentBarChart from "./charts/AmountSpentBarChart";
+import ShopsPieChart from "./charts/ShopsPieChart";
 
 const App = () => {
   return (
@@ -16,6 +18,16 @@ const App = () => {
             <Route path="/" exact component={WelcomePage}></Route>
             <Route path="/upload_file" exact component={FileUpload}></Route>
             <Route path="/amount" exact component={TotalAmountSpent}></Route>
+            <Route
+              path="/amount_spent_bar_chart"
+              exact
+              component={amountSpentBarChart}
+            ></Route>
+            <Route
+              path="/shops_distribution"
+              exact
+              component={ShopsPieChart}
+            ></Route>
           </Switch>
         </div>
       </Router>
