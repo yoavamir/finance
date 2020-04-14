@@ -2,6 +2,7 @@ import React from "react";
 import { Bar } from "react-chartjs-2";
 import { connect } from "react-redux";
 import { getLabelsAndValuesForChart } from "./utils";
+import { getSpentByDay } from "../../actions";
 
 const renderDataForBar = ({ labels, values }) => {
   return {
@@ -21,25 +22,48 @@ const renderDataForBar = ({ labels, values }) => {
 };
 
 const AmountSpentBarChart = (props) => {
-  if (!props.fileActions[props.filename]) {
-    return <div></div>;
-  }
+  const renderBar = () => {
+    if (
+      !props.fileActions[props.filename] ||
+      !props.fileActions[props.filename].spentByDay
+    ) {
+      return <div></div>;
+    }
+    const barData = getLabelsAndValuesForChart(
+      props.fileActions[props.filename].spentByDay
+    );
 
-  const barData = getLabelsAndValuesForChart(
-    props.fileActions[props.filename].dateAndAmount
-  );
+    return (
+      <div>
+        <h2>Day By Day</h2>
+        <Bar
+          data={renderDataForBar(barData)}
+          width={100}
+          height={50}
+          options={{
+            maintainAspectRatio: false,
+          }}
+        />
+      </div>
+    );
+  };
+
+  const handleOnClick = (e) => {
+    e.preventDefault();
+    props.getSpentByDay(props.filename);
+  };
 
   return (
     <div>
-      <h2>Amount spent daily</h2>
-      <Bar
-        data={renderDataForBar(barData)}
-        width={100}
-        height={50}
-        options={{
-          maintainAspectRatio: false,
-        }}
-      />
+      <button
+        className="ui button primary"
+        variant="contained"
+        color="primary"
+        onClick={handleOnClick}
+      >
+        Get spent by day bar chart
+      </button>
+      {renderBar()}
     </div>
   );
 };
@@ -51,4 +75,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(AmountSpentBarChart);
+export default connect(mapStateToProps, { getSpentByDay })(AmountSpentBarChart);

@@ -3,9 +3,16 @@ import { Pie } from "react-chartjs-2";
 import { connect } from "react-redux";
 import { getShopsDistribution } from "../../actions";
 import { getLabelsAndValuesForChart } from "./utils";
-import { colors } from "./colorsPallete";
+import { getDynamicColors, getFixedColors } from "./colors";
+
+const getColorsForChart = (dataLength) => {
+  return dataLength > getFixedColors().length
+    ? getDynamicColors(dataLength)
+    : getFixedColors();
+};
 
 const renderDataForChart = ({ labels, values }) => {
+  const colors = getColorsForChart(labels.length);
   return {
     labels,
     datasets: [
@@ -20,8 +27,11 @@ const renderDataForChart = ({ labels, values }) => {
 
 const ShopsPieChart = (props) => {
   const renderPie = () => {
-    if (!props.fileActions[props.filename]) {
-      return <div>ShopsPieChart</div>;
+    if (
+      !props.fileActions[props.filename] ||
+      !props.fileActions[props.filename].shopsDistribution
+    ) {
+      return <div></div>;
     }
     const pieData = getLabelsAndValuesForChart(
       props.fileActions[props.filename].shopsDistribution
@@ -29,7 +39,7 @@ const ShopsPieChart = (props) => {
 
     return (
       <div>
-        <h2>Pie Example</h2>
+        <h2>Shops distribution</h2>
         <Pie data={renderDataForChart(pieData)} />
       </div>
     );

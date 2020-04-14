@@ -15,6 +15,7 @@ const fileActionsReducer = (state = INITIAL_STATE, action) => {
     case UPLOAD_FILE:
       return { ...state, currentFile: action.payload };
     case TOTAL_AMOUNT:
+      console.log(action.payload);
       return {
         ...state,
         [action.payload[0]]: {
@@ -23,6 +24,7 @@ const fileActionsReducer = (state = INITIAL_STATE, action) => {
         },
       };
     case SPENT_BY_DAY:
+      console.log(action.payload);
       return {
         ...state,
         [action.payload[0]]: {
