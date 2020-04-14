@@ -1,8 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { getTotalAmount } from "../actions";
 
 const TotalAmountSpent = (props) => {
+  useEffect(() => {
+    if (props.filename) {
+      props.getTotalAmount(props.filename);
+    }
+  }, [props.filename]);
+
   const handleOnClick = (e) => {
     e.preventDefault();
     props.getTotalAmount(props.filename);
@@ -10,28 +16,32 @@ const TotalAmountSpent = (props) => {
 
   const renderAmount = () => {
     if (!props.fileActions[props.filename]) {
-      return <div>Loading..</div>;
+      return <div></div>;
     }
     return (
-      <div className="ui divider">
-        <div>
-          spent {Math.round(props.fileActions[props.filename].spent)} NIS
-        </div>
-        <div className="ui celled list"></div>
+      <div>
+        Spent total of {Math.round(props.fileActions[props.filename].spent)} NIS
       </div>
+      // <div className="ui divider">
+      //   <div>
+      //     spent total of {Math.round(props.fileActions[props.filename].spent)}
+      //     NIS
+      //   </div>
+      //   <div className="ui celled list"></div>
+      // </div>
     );
   };
 
   return (
     <div>
-      <button
+      {/* <button
         className="ui button primary"
         variant="contained"
         color="primary"
         onClick={handleOnClick}
       >
         Get Total Amount
-      </button>
+      </button> */}
       {renderAmount()}
     </div>
   );

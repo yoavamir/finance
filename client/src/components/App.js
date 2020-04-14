@@ -13,19 +13,13 @@ import AmountSpentBarChart from "./charts/AmountSpentBarChart";
 const App = () => {
   return (
     <div className="ui container divider">
-      <Header></Header>
-      {/* <WelcomePage></WelcomePage> */}
-      <FileUpload></FileUpload>
-      <AmountSpentBarChart></AmountSpentBarChart>
-      <ShopsPieChart></ShopsPieChart>
-      <CategoryDoughnut></CategoryDoughnut>
-      {/* <Router history={history}>
+      <Router history={history}>
         <Header></Header>
         <div>
           <Switch>
             <Route path="/" exact component={WelcomePage}></Route>
             <Route path="/upload_file" exact component={FileUpload}></Route>
-            <Route path="/amount" exact component={TotalAmountSpent}></Route>
+            {/* <Route path="/amount" exact component={TotalAmountSpent}></Route> */}
             <Route
               path="/amount_spent_bar_chart"
               exact
@@ -43,7 +37,7 @@ const App = () => {
             ></Route>
           </Switch>
         </div>
-      </Router> */}
+      </Router>
     </div>
   );
 };
