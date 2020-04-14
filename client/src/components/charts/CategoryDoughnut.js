@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
-import { Pie } from "react-chartjs-2";
+import { Doughnut } from "react-chartjs-2";
 import { connect } from "react-redux";
-import { getShopsDistribution } from "../../actions";
+import { getCategoryDistribution } from "../../actions";
 import { getLabelsAndValuesForChart } from "./utils";
 import { getDynamicColors, getFixedColors } from "./colors";
 
@@ -25,35 +25,34 @@ const renderDataForChart = ({ labels, values }) => {
   };
 };
 
-const ShopsPieChart = (props) => {
+const CategoryDoughnut = (props) => {
   useEffect(() => {
     if (props.filename) {
-      props.getShopsDistribution(props.filename);
+      props.getCategoryDistribution(props.filename);
     }
   }, [props.filename]);
 
-  const renderPie = () => {
+  const renderDounghut = () => {
     if (
       !props.fileActions[props.filename] ||
-      !props.fileActions[props.filename].shopsDistribution
+      !props.fileActions[props.filename].categoryDistribution
     ) {
       return <div></div>;
     }
-    const pieData = getLabelsAndValuesForChart(
-      props.fileActions[props.filename].shopsDistribution
+    const doughnutData = getLabelsAndValuesForChart(
+      props.fileActions[props.filename].categoryDistribution
     );
-
     return (
       <div>
-        <h2>Shops distribution</h2>
-        <Pie data={renderDataForChart(pieData)} />
+        <h2>Category Distribution</h2>
+        <Doughnut data={renderDataForChart(doughnutData)} />
       </div>
     );
   };
 
   const handleOnClick = (e) => {
     e.preventDefault();
-    props.getShopsDistribution(props.filename);
+    props.getCategoryDistribution(props.filename);
   };
 
   return (
@@ -64,9 +63,9 @@ const ShopsPieChart = (props) => {
         color="primary"
         onClick={handleOnClick}
       >
-        Get shops distribution
+        Get category distribution
       </button> */}
-      {renderPie()}
+      {renderDounghut()}
     </div>
   );
 };
@@ -78,6 +77,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { getShopsDistribution })(
-  ShopsPieChart
+export default connect(mapStateToProps, { getCategoryDistribution })(
+  CategoryDoughnut
 );

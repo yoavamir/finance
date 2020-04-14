@@ -7,11 +7,19 @@ import WelcomePage from "./WelcomePage";
 import Header from "./Header";
 import amountSpentBarChart from "./charts/AmountSpentBarChart";
 import ShopsPieChart from "./charts/ShopsPieChart";
+import CategoryDoughnut from "./charts/CategoryDoughnut";
+import AmountSpentBarChart from "./charts/AmountSpentBarChart";
 
 const App = () => {
   return (
     <div className="ui container divider">
-      <Router history={history}>
+      <Header></Header>
+      {/* <WelcomePage></WelcomePage> */}
+      <FileUpload></FileUpload>
+      <AmountSpentBarChart></AmountSpentBarChart>
+      <ShopsPieChart></ShopsPieChart>
+      <CategoryDoughnut></CategoryDoughnut>
+      {/* <Router history={history}>
         <Header></Header>
         <div>
           <Switch>
@@ -28,9 +36,14 @@ const App = () => {
               exact
               component={ShopsPieChart}
             ></Route>
+            <Route
+              path="/category_distribution"
+              exact
+              component={CategoryDoughnut}
+            ></Route>
           </Switch>
         </div>
-      </Router>
+      </Router> */}
     </div>
   );
 };

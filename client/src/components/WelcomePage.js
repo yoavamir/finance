@@ -15,7 +15,10 @@ const WelcomePage = () => {
         Show amount spent bar chart
       </Link>
       <Link to="/shops_distribution" className="ui button primary">
-        Show shops dist
+        Show shops distribution
+      </Link>
+      <Link to="/category_distribution" className="ui button primary">
+        Show category distribution
       </Link>
     </div>
   );

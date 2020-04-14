@@ -23,7 +23,7 @@ const FileUpload = (props) => {
       <div className="ui input">
         <input type="file" className="icon upload" onChange={onChange} />
         <button className="ui button primary" onClick={sendToServer}>
-          Upload file
+          Upload file to get expense analysis
         </button>
       </div>
     </div>

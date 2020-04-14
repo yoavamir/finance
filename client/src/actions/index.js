@@ -5,6 +5,8 @@ import {
   TOTAL_AMOUNT,
   SPENT_BY_DAY,
   SHOPS_DISTRIBUTION,
+  CATEGORY_DISTRIBUTION,
+  TIME_RANGE,
 } from "./types";
 
 export const uploadFile = (formData) => async (dispatch) => {
@@ -32,4 +34,18 @@ export const getShopsDistribution = (filename) => async (dispatch) => {
     params: { filename },
   });
   dispatch({ type: SHOPS_DISTRIBUTION, payload: response.data });
+};
+
+export const getCategoryDistribution = (filename) => async (dispatch) => {
+  const response = await fileActions.get("/category_distribution", {
+    params: { filename },
+  });
+  dispatch({ type: CATEGORY_DISTRIBUTION, payload: response.data });
+};
+
+export const getFileTimeRange = (filename) => async (dispatch) => {
+  const response = await fileActions.get("/time_range", {
+    params: { filename },
+  });
+  dispatch({ type: TIME_RANGE, payload: response.data });
 };

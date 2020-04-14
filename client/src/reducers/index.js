@@ -4,6 +4,8 @@ import {
   TOTAL_AMOUNT,
   SPENT_BY_DAY,
   SHOPS_DISTRIBUTION,
+  CATEGORY_DISTRIBUTION,
+  TIME_RANGE,
 } from "../actions/types";
 
 const INITIAL_STATE = {
@@ -38,6 +40,23 @@ const fileActionsReducer = (state = INITIAL_STATE, action) => {
         [action.payload[0]]: {
           ...state[action.payload[0]],
           shopsDistribution: action.payload[1],
+        },
+      };
+    case CATEGORY_DISTRIBUTION:
+      return {
+        ...state,
+        [action.payload[0]]: {
+          ...state[action.payload[0]],
+          categoryDistribution: action.payload[1],
+        },
+      };
+    case TIME_RANGE:
+      return {
+        ...state,
+        [action.payload[0]]: {
+          ...state[action.payload[0]],
+          startDate: action.payload[1],
+          endDate: action.payload[2],
         },
       };
 

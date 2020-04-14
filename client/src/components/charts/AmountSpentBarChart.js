@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Bar } from "react-chartjs-2";
 import { connect } from "react-redux";
 import { getLabelsAndValuesForChart } from "./utils";
@@ -22,6 +22,12 @@ const renderDataForBar = ({ labels, values }) => {
 };
 
 const AmountSpentBarChart = (props) => {
+  useEffect(() => {
+    if (props.filename) {
+      props.getSpentByDay(props.filename);
+    }
+  }, [props.filename]);
+
   const renderBar = () => {
     if (
       !props.fileActions[props.filename] ||
@@ -55,14 +61,14 @@ const AmountSpentBarChart = (props) => {
 
   return (
     <div>
-      <button
+      {/* <button
         className="ui button primary"
         variant="contained"
         color="primary"
         onClick={handleOnClick}
       >
         Get spent by day bar chart
-      </button>
+      </button> */}
       {renderBar()}
     </div>
   );
