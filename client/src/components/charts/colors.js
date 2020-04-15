@@ -55,3 +55,9 @@ export const getFixedColors = () => {
     "#dead31",
   ];
 };
+
+export const getColorsForChart = (dataLength) => {
+  return dataLength > getFixedColors().length
+    ? getDynamicColors(dataLength)
+    : getFixedColors();
+};

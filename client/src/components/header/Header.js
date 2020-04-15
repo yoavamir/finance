@@ -1,21 +1,27 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import TimeRange from "../components/TimeRange";
-import TotalAmountSpent from "../components/TotalAmountSpent";
+import TimeRange from "./TimeRange";
+import TotalAmountSpent from "./TotalAmountSpent";
 
 const Header = (props) => {
   return (
     <div className="ui secondary pointing menu">
       <Link to="/" className="item header ">
-        <a className="ui blue sub header">Finance</a>
+        <div className="ui blue sub header">Finance</div>
       </Link>
-      <div className="item center menu">current file: {props.filename}</div>
       <div className="item center menu">
-        <TotalAmountSpent></TotalAmountSpent>
+        <div className="ui sub header">current file: {props.filename}</div>
+      </div>
+      <div className="item center menu">
+        <div className="ui sub header">
+          <TotalAmountSpent></TotalAmountSpent>
+        </div>
       </div>
       <div className="item right menu">
-        <TimeRange></TimeRange>
+        <div>
+          <TimeRange></TimeRange>
+        </div>
       </div>
     </div>
   );

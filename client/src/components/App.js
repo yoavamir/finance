@@ -1,25 +1,23 @@
 import React from "react";
 import { Router, Route, Switch } from "react-router-dom";
 import history from "../history";
-import TotalAmountSpent from "./TotalAmountSpent";
 import FileUpload from "./FileUpload";
 import WelcomePage from "./WelcomePage";
-import Header from "./Header";
+import Header from "./header/Header";
 import amountSpentBarChart from "./charts/AmountSpentBarChart";
 import ShopsPieChart from "./charts/ShopsPieChart";
 import CategoryDoughnut from "./charts/CategoryDoughnut";
-import AmountSpentBarChart from "./charts/AmountSpentBarChart";
+import MonthlyExpenses from "./charts/MonthlyExpenses";
 
 const App = () => {
   return (
     <div className="ui container divider">
       <Router history={history}>
         <Header></Header>
-        <div>
+        <WelcomePage></WelcomePage>
+        <div className="ui divider">
           <Switch>
-            <Route path="/" exact component={WelcomePage}></Route>
             <Route path="/upload_file" exact component={FileUpload}></Route>
-            {/* <Route path="/amount" exact component={TotalAmountSpent}></Route> */}
             <Route
               path="/amount_spent_bar_chart"
               exact
@@ -34,6 +32,11 @@ const App = () => {
               path="/category_distribution"
               exact
               component={CategoryDoughnut}
+            ></Route>
+            <Route
+              path="/spent_by_month"
+              exact
+              component={MonthlyExpenses}
             ></Route>
           </Switch>
         </div>

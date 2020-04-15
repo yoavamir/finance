@@ -3,14 +3,16 @@ import { Bar } from "react-chartjs-2";
 import { connect } from "react-redux";
 import { getLabelsAndValuesForChart } from "./utils";
 import { getSpentByDay } from "../../actions";
+import { getColorsForChart } from "./colors";
 
 const renderDataForBar = ({ labels, values }) => {
+  const colors = getColorsForChart(labels.length);
   return {
     labels: labels,
     datasets: [
       {
         label: "Total amount spent",
-        backgroundColor: "rgba(255,99,132,0.2)",
+        backgroundColor: colors,
         borderColor: "rgba(255,99,132,1)",
         borderWidth: 1,
         hoverBackgroundColor: "rgba(255,99,132,0.4)",
@@ -21,22 +23,19 @@ const renderDataForBar = ({ labels, values }) => {
   };
 };
 
-const AmountSpentBarChart = (props) => {
+const AmountSpentBarChart = ({ filename, fileActions, getSpentByDay }) => {
   useEffect(() => {
-    if (props.filename) {
-      props.getSpentByDay(props.filename);
+    if (filename) {
+      getSpentByDay(filename);
     }
-  }, [props.filename]);
+  }, [filename, getSpentByDay]);
 
   const renderBar = () => {
-    if (
-      !props.fileActions[props.filename] ||
-      !props.fileActions[props.filename].spentByDay
-    ) {
+    if (!fileActions[filename] || !fileActions[filename].spentByDay) {
       return <div></div>;
     }
     const barData = getLabelsAndValuesForChart(
-      props.fileActions[props.filename].spentByDay
+      fileActions[filename].spentByDay
     );
 
     return (
@@ -54,24 +53,7 @@ const AmountSpentBarChart = (props) => {
     );
   };
 
-  const handleOnClick = (e) => {
-    e.preventDefault();
-    props.getSpentByDay(props.filename);
-  };
-
-  return (
-    <div>
-      {/* <button
-        className="ui button primary"
-        variant="contained"
-        color="primary"
-        onClick={handleOnClick}
-      >
-        Get spent by day bar chart
-      </button> */}
-      {renderBar()}
-    </div>
-  );
+  return <div>{renderBar()}</div>;
 };
 
 const mapStateToProps = (state) => {

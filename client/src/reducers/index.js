@@ -6,6 +6,7 @@ import {
   SHOPS_DISTRIBUTION,
   CATEGORY_DISTRIBUTION,
   TIME_RANGE,
+  MONTHLY_EXPENSE,
 } from "../actions/types";
 
 const INITIAL_STATE = {
@@ -17,7 +18,6 @@ const fileActionsReducer = (state = INITIAL_STATE, action) => {
     case UPLOAD_FILE:
       return { ...state, currentFile: action.payload };
     case TOTAL_AMOUNT:
-      console.log(action.payload);
       return {
         ...state,
         [action.payload[0]]: {
@@ -26,7 +26,6 @@ const fileActionsReducer = (state = INITIAL_STATE, action) => {
         },
       };
     case SPENT_BY_DAY:
-      console.log(action.payload);
       return {
         ...state,
         [action.payload[0]]: {
@@ -57,6 +56,14 @@ const fileActionsReducer = (state = INITIAL_STATE, action) => {
           ...state[action.payload[0]],
           startDate: action.payload[1],
           endDate: action.payload[2],
+        },
+      };
+    case MONTHLY_EXPENSE:
+      return {
+        ...state,
+        [action.payload[0]]: {
+          ...state[action.payload[0]],
+          monthlyExpense: action.payload[1],
         },
       };
 

@@ -3,13 +3,7 @@ import { Pie } from "react-chartjs-2";
 import { connect } from "react-redux";
 import { getShopsDistribution } from "../../actions";
 import { getLabelsAndValuesForChart } from "./utils";
-import { getDynamicColors, getFixedColors } from "./colors";
-
-const getColorsForChart = (dataLength) => {
-  return dataLength > getFixedColors().length
-    ? getDynamicColors(dataLength)
-    : getFixedColors();
-};
+import { getColorsForChart } from "./colors";
 
 const renderDataForChart = ({ labels, values }) => {
   const colors = getColorsForChart(labels.length);
@@ -25,22 +19,19 @@ const renderDataForChart = ({ labels, values }) => {
   };
 };
 
-const ShopsPieChart = (props) => {
+const ShopsPieChart = ({ filename, fileActions, getShopsDistribution }) => {
   useEffect(() => {
-    if (props.filename) {
-      props.getShopsDistribution(props.filename);
+    if (filename) {
+      getShopsDistribution(filename);
     }
-  }, [props.filename]);
+  }, [filename, getShopsDistribution]);
 
   const renderPie = () => {
-    if (
-      !props.fileActions[props.filename] ||
-      !props.fileActions[props.filename].shopsDistribution
-    ) {
+    if (!fileActions[filename] || !fileActions[filename].shopsDistribution) {
       return <div></div>;
     }
     const pieData = getLabelsAndValuesForChart(
-      props.fileActions[props.filename].shopsDistribution
+      fileActions[filename].shopsDistribution
     );
 
     return (
@@ -51,24 +42,7 @@ const ShopsPieChart = (props) => {
     );
   };
 
-  const handleOnClick = (e) => {
-    e.preventDefault();
-    props.getShopsDistribution(props.filename);
-  };
-
-  return (
-    <div>
-      {/* <button
-        className="ui button primary"
-        variant="contained"
-        color="primary"
-        onClick={handleOnClick}
-      >
-        Get shops distribution
-      </button> */}
-      {renderPie()}
-    </div>
-  );
+  return <div>{renderPie()}</div>;
 };
 
 const mapStateToProps = (state) => {
