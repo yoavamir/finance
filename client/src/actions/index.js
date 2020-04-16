@@ -8,6 +8,7 @@ import {
   CATEGORY_DISTRIBUTION,
   TIME_RANGE,
   MONTHLY_EXPENSE,
+  SET_MONTHS,
 } from "./types";
 
 export const uploadFile = (formData) => async (dispatch) => {
@@ -56,4 +57,8 @@ export const getMonthlyExpense = (filename) => async (dispatch) => {
     params: { filename },
   });
   dispatch({ type: MONTHLY_EXPENSE, payload: response.data });
+};
+
+export const setSelectedMonths = (months) => {
+  return { type: SET_MONTHS, payload: months };
 };

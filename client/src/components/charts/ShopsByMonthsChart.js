@@ -32,7 +32,7 @@ const renderDataForBar = ({ labels, values }) => {
   };
 };
 
-const AmountSpentBarChart = ({ filename, fileActions, getSpentByDay }) => {
+const ShopsByMonthsChart = ({ filename, fileActions, getSpentByDay }) => {
   useEffect(() => {
     if (filename) {
       getSpentByDay(filename);
@@ -72,4 +72,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { getSpentByDay })(AmountSpentBarChart);
+export default connect(mapStateToProps, { getSpentByDay })(ShopsByMonthsChart);

@@ -19,6 +19,12 @@ const renderDataForChart = ({ labels, values }) => {
   };
 };
 
+const options = {
+  legend: {
+    display: false,
+  },
+};
+
 const ShopsPieChart = ({ filename, fileActions, getShopsDistribution }) => {
   useEffect(() => {
     if (filename) {
@@ -37,7 +43,7 @@ const ShopsPieChart = ({ filename, fileActions, getShopsDistribution }) => {
     return (
       <div>
         <h2>Shops distribution</h2>
-        <Pie data={renderDataForChart(pieData)} />
+        <Pie data={renderDataForChart(pieData)} options={options} />
       </div>
     );
   };

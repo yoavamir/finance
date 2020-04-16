@@ -6,7 +6,7 @@ import TotalAmountSpent from "./TotalAmountSpent";
 
 const Header = (props) => {
   return (
-    <div className="ui secondary pointing menu">
+    <div className="ui segment secondary pointing menu">
       <Link to="/" className="item header ">
         <div className="ui blue sub header">Finance</div>
       </Link>

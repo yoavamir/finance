@@ -1,4 +1,5 @@
 import { combineReducers } from "redux";
+
 import {
   UPLOAD_FILE,
   TOTAL_AMOUNT,
@@ -7,16 +8,22 @@ import {
   CATEGORY_DISTRIBUTION,
   TIME_RANGE,
   MONTHLY_EXPENSE,
+  SET_MONTHS,
 } from "../actions/types";
 
 const INITIAL_STATE = {
   currentFile: "",
+  months: [],
 };
 
 const fileActionsReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case UPLOAD_FILE:
-      return { ...state, currentFile: action.payload };
+      return {
+        ...state,
+        currentFile: action.payload[0],
+        months: [...state.months, ...action.payload[1]],
+      };
     case TOTAL_AMOUNT:
       return {
         ...state,
@@ -72,6 +79,21 @@ const fileActionsReducer = (state = INITIAL_STATE, action) => {
   }
 };
 
+const INIT_STATE = {
+  selectedMonths: [],
+  selectedShops: [],
+};
+
+const menusReducers = (state = INIT_STATE, action) => {
+  switch (action.type) {
+    case SET_MONTHS:
+      return { ...state, selectedMonths: action.payload };
+    default:
+      return state;
+  }
+};
+
 export default combineReducers({
   fileActions: fileActionsReducer,
+  menus: menusReducers,
 });
