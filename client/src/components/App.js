@@ -8,6 +8,7 @@ import amountSpentBarChart from "./charts/AmountSpentBarChart";
 import ShopsPieChart from "./charts/ShopsPieChart";
 import CategoryDoughnut from "./charts/CategoryDoughnut";
 import MonthlyExpenses from "./charts/MonthlyExpenses";
+import ShopsByMonthsChart from "./charts/ShopsByMonthsChart";
 
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
       <Router history={history}>
         <Header></Header>
         <WelcomePage></WelcomePage>
+        <ShopsByMonthsChart></ShopsByMonthsChart>
         <div className="ui divider">
           <Switch>
             <Route path="/upload_file" exact component={FileUpload}></Route>

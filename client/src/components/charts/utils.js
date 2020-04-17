@@ -11,3 +11,15 @@ export const getLabelsAndValuesForChart = (data) => {
 
   return { labels, values };
 };
+
+export const getMonths = (data) => {
+  let labels = [];
+  let values = [];
+
+  _.map(data, (item) => {
+    labels.push([item[0]]);
+    values.push(Math.round([item[1]]));
+  });
+
+  return { labels, values };
+};

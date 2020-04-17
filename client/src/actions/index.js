@@ -8,7 +8,9 @@ import {
   CATEGORY_DISTRIBUTION,
   TIME_RANGE,
   MONTHLY_EXPENSE,
+  SHOPS_BY_MONTHS,
   SET_MONTHS,
+  SET_SHOPS,
 } from "./types";
 
 export const uploadFile = (formData) => async (dispatch) => {
@@ -59,6 +61,17 @@ export const getMonthlyExpense = (filename) => async (dispatch) => {
   dispatch({ type: MONTHLY_EXPENSE, payload: response.data });
 };
 
+export const getShopExpenseByMonth = (filename) => async (dispatch) => {
+  const response = await fileActions.get("/shops_by_months", {
+    params: { filename },
+  });
+  dispatch({ type: SHOPS_BY_MONTHS, payload: response.data });
+};
+
 export const setSelectedMonths = (months) => {
   return { type: SET_MONTHS, payload: months };
+};
+
+export const setSelectedShops = (shops) => {
+  return { type: SET_SHOPS, payload: shops };
 };

@@ -3,22 +3,21 @@ import { connect } from "react-redux";
 import { Dropdown } from "semantic-ui-react";
 import _ from "lodash";
 
-import { setSelectedMonths } from "../../actions";
+import { setSelectedShops } from "../../actions";
 
-const MonthsDropDown = ({ months, setSelectedMonths }) => {
-  const options = _.map(months, (item) => {
+const ShopsDropDown = ({ shops, setSelectedShops }) => {
+  const options = _.map(shops, (item) => {
     return { key: item, text: item, value: item };
   });
 
   const handleOnChange = (e, data) => {
     e.preventDefault();
-    console.log(data);
-    setSelectedMonths(data.value);
+    setSelectedShops(data.value);
   };
 
   return (
     <Dropdown
-      placeholder="Months"
+      placeholder="Shops"
       fluid
       multiple
       selection
@@ -29,7 +28,7 @@ const MonthsDropDown = ({ months, setSelectedMonths }) => {
 };
 
 const mapStateToProps = (state) => {
-  return { months: state.fileActions.months };
+  return { shops: state.fileActions.shops };
 };
 
-export default connect(mapStateToProps, { setSelectedMonths })(MonthsDropDown);
+export default connect(mapStateToProps, { setSelectedShops })(ShopsDropDown);

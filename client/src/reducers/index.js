@@ -8,12 +8,15 @@ import {
   CATEGORY_DISTRIBUTION,
   TIME_RANGE,
   MONTHLY_EXPENSE,
+  SHOPS_BY_MONTHS,
   SET_MONTHS,
+  SET_SHOPS,
 } from "../actions/types";
 
 const INITIAL_STATE = {
   currentFile: "",
   months: [],
+  shops: [],
 };
 
 const fileActionsReducer = (state = INITIAL_STATE, action) => {
@@ -23,6 +26,7 @@ const fileActionsReducer = (state = INITIAL_STATE, action) => {
         ...state,
         currentFile: action.payload[0],
         months: [...state.months, ...action.payload[1]],
+        shops: [...state.shops, ...action.payload[2]],
       };
     case TOTAL_AMOUNT:
       return {
@@ -73,21 +77,31 @@ const fileActionsReducer = (state = INITIAL_STATE, action) => {
           monthlyExpense: action.payload[1],
         },
       };
+    case SHOPS_BY_MONTHS:
+      return {
+        ...state,
+        [action.payload[0]]: {
+          ...state[action.payload[0]],
+          shopsByMonths: action.payload[1],
+        },
+      };
 
     default:
       return state;
   }
 };
 
-const INIT_STATE = {
+const MENU_INITIAL_STATE = {
   selectedMonths: [],
   selectedShops: [],
 };
 
-const menusReducers = (state = INIT_STATE, action) => {
+const menusReducers = (state = MENU_INITIAL_STATE, action) => {
   switch (action.type) {
     case SET_MONTHS:
       return { ...state, selectedMonths: action.payload };
+    case SET_SHOPS:
+      return { ...state, selectedShops: action.payload };
     default:
       return state;
   }
