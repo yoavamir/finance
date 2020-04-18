@@ -30,9 +30,12 @@ const WelcomePage = (props) => {
   return (
     <div style={{ margin: "20px" }}>
       {renderText()}
-      <Link to="/upload_file" className="ui button primary">
-        Upload finance file
+      <Link to="/init_data" className="ui button primary">
+        Init Data
       </Link>
+      {/* <Link to="/upload_file" className="ui button primary">
+        Upload finance file
+      </Link> */}
       <Link to="/amount_spent_bar_chart" className="ui button primary">
         Show amount spent bar chart
       </Link>

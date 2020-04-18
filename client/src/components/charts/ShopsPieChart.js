@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 import { getShopsDistribution } from "../../actions";
 import { getLabelsAndValuesForChart } from "./utils";
 import { getColorsForChart } from "./colors";
+import ShopsDropDown from "../dropdowns/ShopsDropDown";
+import _ from "lodash";
 
 const renderDataForChart = ({ labels, values }) => {
   const colors = getColorsForChart(labels.length);
@@ -21,28 +23,32 @@ const renderDataForChart = ({ labels, values }) => {
 
 const options = {
   legend: {
-    display: false,
+    display: true,
   },
 };
 
-const ShopsPieChart = ({ filename, fileActions, getShopsDistribution }) => {
+const ShopsPieChart = ({
+  selectedShops,
+  shopsDistribution,
+  getShopsDistribution,
+}) => {
   useEffect(() => {
-    if (filename) {
-      getShopsDistribution(filename);
-    }
-  }, [filename, getShopsDistribution]);
+    getShopsDistribution();
+  }, [getShopsDistribution]);
 
   const renderPie = () => {
-    if (!fileActions[filename] || !fileActions[filename].shopsDistribution) {
+    if (!shopsDistribution) {
       return <div></div>;
     }
     const pieData = getLabelsAndValuesForChart(
-      fileActions[filename].shopsDistribution
+      _.filter(shopsDistribution, (item) => _.includes(selectedShops, item[0]))
     );
 
     return (
       <div>
+        filename
         <h2>Shops distribution</h2>
+        <ShopsDropDown></ShopsDropDown>
         <Pie data={renderDataForChart(pieData)} options={options} />
       </div>
     );
@@ -53,8 +59,8 @@ const ShopsPieChart = ({ filename, fileActions, getShopsDistribution }) => {
 
 const mapStateToProps = (state) => {
   return {
-    filename: state.fileActions.currentFile,
-    fileActions: state.fileActions,
+    shopsDistribution: state.fileActions.shopsDistribution,
+    selectedShops: state.menus.selectedShops,
   };
 };
 

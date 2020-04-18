@@ -1,6 +1,7 @@
 import fileActions from "../apis/fileActions";
 import history from "../history";
 import {
+  INIT_DATA,
   UPLOAD_FILE,
   TOTAL_AMOUNT,
   SPENT_BY_DAY,
@@ -12,6 +13,12 @@ import {
   SET_MONTHS,
   SET_SHOPS,
 } from "./types";
+
+export const initData = () => async (dispatch) => {
+  const response = await fileActions.post("/init_data");
+  dispatch({ type: INIT_DATA, payload: response.data });
+  history.push("/");
+};
 
 export const uploadFile = (formData) => async (dispatch) => {
   const response = await fileActions.post("/upload_file", formData);
@@ -33,10 +40,8 @@ export const getSpentByDay = (filename) => async (dispatch) => {
   dispatch({ type: SPENT_BY_DAY, payload: response.data });
 };
 
-export const getShopsDistribution = (filename) => async (dispatch) => {
-  const response = await fileActions.get("/shops_distribution", {
-    params: { filename },
-  });
+export const getShopsDistribution = () => async (dispatch) => {
+  const response = await fileActions.get("/shops_distribution");
   dispatch({ type: SHOPS_DISTRIBUTION, payload: response.data });
 };
 
@@ -54,10 +59,8 @@ export const getFileTimeRange = (filename) => async (dispatch) => {
   dispatch({ type: TIME_RANGE, payload: response.data });
 };
 
-export const getMonthlyExpense = (filename) => async (dispatch) => {
-  const response = await fileActions.get("/spent_by_month", {
-    params: { filename },
-  });
+export const getMonthlyExpense = () => async (dispatch) => {
+  const response = await fileActions.get("/spent_by_month");
   dispatch({ type: MONTHLY_EXPENSE, payload: response.data });
 };
 

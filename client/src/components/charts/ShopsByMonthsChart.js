@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
 import { connect } from "react-redux";
-import { getLabelsAndValuesForChart } from "./utils";
 import { getShopExpenseByMonth } from "../../actions";
 import { getColorsForChart } from "./colors";
 import MonthsDropDown from "../dropdowns/MonthsDropDown";
@@ -32,6 +31,35 @@ const data = {
   ],
 };
 
+const buildDataChart = (selectedMonths, datasets) => {
+  return {
+    labels: selectedMonths,
+
+    datasets,
+  };
+};
+
+const baseDataSet = {
+  backgroundColor: "rgba(255,99,132,0.2)",
+  borderColor: "rgba(255,99,132,1)",
+  borderWidth: 1,
+  hoverBackgroundColor: "rgba(255,99,132,0.4)",
+  hoverBorderColor: "rgba(255,99,132,1)",
+};
+
+const renderChart = (selectedMonths, datasets) => {
+  return (
+    <Bar
+      data={buildDataChart(selectedMonths, datasets)}
+      width={100}
+      height={50}
+      options={{
+        maintainAspectRatio: false,
+      }}
+    />
+  );
+};
+
 const ShopsByMonthsChart = ({
   filename,
   fileActions,
@@ -43,14 +71,6 @@ const ShopsByMonthsChart = ({
       getShopExpenseByMonth(filename);
     }
   }, [filename, getShopExpenseByMonth]);
-
-  const buildDataChart = (datasets) => {
-    return {
-      labels: menus.selectedMonths,
-
-      datasets,
-    };
-  };
 
   const renderBar = () => {
     if (!fileActions[filename] || !fileActions[filename].shopsByMonths) {
@@ -65,47 +85,26 @@ const ShopsByMonthsChart = ({
       }
     );
 
-    const renderChart = (datasets) => {
-      return (
-        <Bar
-          data={buildDataChart(datasets[0])}
-          width={100}
-          height={50}
-          options={{
-            maintainAspectRatio: false,
-          }}
-        />
-      );
-    };
+    console.log(relevantValues);
 
     const groupedByMonths = _.groupBy(relevantValues, (item) => {
       return item[0];
     });
 
-    const baseDataSet = {
-      backgroundColor: "rgba(255,99,132,0.2)",
-      borderColor: "rgba(255,99,132,1)",
-      borderWidth: 1,
-      hoverBackgroundColor: "rgba(255,99,132,0.4)",
-      hoverBorderColor: "rgba(255,99,132,1)",
-    };
+    // TODO
+    const groupedByShops = _.groupBy(relevantValues, (item) => {
+      return item[1];
+    });
 
-    let datasets = _.map(groupedByMonths, (values, month) => {
+    const datasets = _.map(groupedByMonths, (values, month) => {
       return _.map(groupedByMonths[month], (item) => {
         return { ...baseDataSet, ["label"]: item[1], ["data"]: [item[2]] };
       });
     });
 
-    // let a = {};
-    // if (datasets[0] === undefined) {
-    //   a = { ...baseDataSet, ["label"]: "1", ["data"]: 2 };
-    // } else {
-    //   a = Array(datasets[0][0]);
-    // }
-
-    // if (datasets[0] !== undefined) {
-    //   datasets = Array(datasets[0][0]);
-    // }
+    const filtered_datasets = _.filter(datasets[0], (item) => {
+      return menus.selectedShops.includes(item.label);
+    });
 
     return (
       <div>
@@ -118,7 +117,7 @@ const ShopsByMonthsChart = ({
             <ShopsDropDown></ShopsDropDown>
           </div>
         </div>
-        {renderChart(datasets)}
+        {renderChart(menus.selectedMonths, filtered_datasets)}
       </div>
     );
   };

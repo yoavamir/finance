@@ -9,6 +9,7 @@ import ShopsPieChart from "./charts/ShopsPieChart";
 import CategoryDoughnut from "./charts/CategoryDoughnut";
 import MonthlyExpenses from "./charts/MonthlyExpenses";
 import ShopsByMonthsChart from "./charts/ShopsByMonthsChart";
+import FetchDataButton from "./FetchDataButton";
 
 const App = () => {
   return (
@@ -16,10 +17,11 @@ const App = () => {
       <Router history={history}>
         <Header></Header>
         <WelcomePage></WelcomePage>
-        <ShopsByMonthsChart></ShopsByMonthsChart>
+        {/* <ShopsByMonthsChart></ShopsByMonthsChart> */}
         <div className="ui divider">
           <Switch>
-            <Route path="/upload_file" exact component={FileUpload}></Route>
+            <Route path="/init_data" exact component={FetchDataButton}></Route>
+            {/* <Route path="/upload_file" exact component={FileUpload}></Route> */}
             <Route
               path="/amount_spent_bar_chart"
               exact

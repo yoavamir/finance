@@ -59,26 +59,21 @@ const renderDataForChart = ({ labels, values }) => {
 };
 
 const MonthlyExpenses = ({
-  filename,
-  fileActions,
+  monthlyExpense,
   getMonthlyExpense,
   selectedMonths,
 }) => {
   useEffect(() => {
-    if (filename) {
-      getMonthlyExpense(filename);
-    }
-  }, [filename, getMonthlyExpense]);
+    getMonthlyExpense();
+  }, [getMonthlyExpense]);
 
   const renderChart = () => {
-    if (!fileActions[filename] || !fileActions[filename].monthlyExpense) {
+    if (!monthlyExpense) {
       return <div></div>;
     }
 
     const chartData = getLabelsAndValuesForChart(
-      _.filter(fileActions[filename].monthlyExpense, (item) =>
-        _.includes(selectedMonths, item[0])
-      )
+      _.filter(monthlyExpense, (item) => _.includes(selectedMonths, item[0]))
     );
 
     return (
@@ -95,8 +90,7 @@ const MonthlyExpenses = ({
 
 const mapStateToProps = (state) => {
   return {
-    filename: state.fileActions.currentFile,
-    fileActions: state.fileActions,
+    monthlyExpense: state.fileActions.monthlyExpense,
     selectedMonths: state.menus.selectedMonths,
   };
 };

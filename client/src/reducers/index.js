@@ -1,6 +1,7 @@
 import { combineReducers } from "redux";
 
 import {
+  INIT_DATA,
   UPLOAD_FILE,
   TOTAL_AMOUNT,
   SPENT_BY_DAY,
@@ -17,10 +18,18 @@ const INITIAL_STATE = {
   currentFile: "",
   months: [],
   shops: [],
+  monthlyExpense: null,
+  shopsDistribution: null,
 };
 
 const fileActionsReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
+    case INIT_DATA:
+      return {
+        ...state,
+        months: [...state.months, ...action.payload[0]],
+        shops: [...state.shops, ...action.payload[1]],
+      };
     case UPLOAD_FILE:
       return {
         ...state,
@@ -47,10 +56,7 @@ const fileActionsReducer = (state = INITIAL_STATE, action) => {
     case SHOPS_DISTRIBUTION:
       return {
         ...state,
-        [action.payload[0]]: {
-          ...state[action.payload[0]],
-          shopsDistribution: action.payload[1],
-        },
+        shopsDistribution: action.payload,
       };
     case CATEGORY_DISTRIBUTION:
       return {
@@ -72,10 +78,7 @@ const fileActionsReducer = (state = INITIAL_STATE, action) => {
     case MONTHLY_EXPENSE:
       return {
         ...state,
-        [action.payload[0]]: {
-          ...state[action.payload[0]],
-          monthlyExpense: action.payload[1],
-        },
+        monthlyExpense: action.payload,
       };
     case SHOPS_BY_MONTHS:
       return {

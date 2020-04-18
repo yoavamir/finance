@@ -1,3 +1,4 @@
+export const INIT_DATA = "INIT_DATA";
 export const UPLOAD_FILE = "UPLOAD_FILE";
 export const TOTAL_AMOUNT = "TOTAL_AMOUNT";
 export const SPENT_BY_DAY = "SPENT_BY_DAY";
