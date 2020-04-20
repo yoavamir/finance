@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { connect } from "react-redux";
 import TimeRange from "./TimeRange";
 import TotalAmountSpent from "./TotalAmountSpent";
 
@@ -10,9 +9,6 @@ const Header = (props) => {
       <Link to="/" className="item header ">
         <div className="ui blue sub header">Finance</div>
       </Link>
-      <div className="item center menu">
-        <div className="ui sub header">current file: {props.filename}</div>
-      </div>
       <div className="item center menu">
         <div className="ui sub header">
           <TotalAmountSpent></TotalAmountSpent>
@@ -27,8 +23,4 @@ const Header = (props) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return { filename: state.fileActions.currentFile };
-};
-
-export default connect(mapStateToProps)(Header);
+export default Header;

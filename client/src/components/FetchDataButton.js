@@ -3,8 +3,6 @@ import { connect } from "react-redux";
 import { initData } from "../actions";
 
 const FetchDataButton = (props) => {
-  console.log(props);
-
   return (
     <div
       className="ui primary button"

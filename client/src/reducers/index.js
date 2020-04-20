@@ -20,6 +20,7 @@ const INITIAL_STATE = {
   shops: [],
   monthlyExpense: null,
   shopsDistribution: null,
+  spent: null,
 };
 
 const fileActionsReducer = (state = INITIAL_STATE, action) => {
@@ -40,10 +41,7 @@ const fileActionsReducer = (state = INITIAL_STATE, action) => {
     case TOTAL_AMOUNT:
       return {
         ...state,
-        [action.payload[0]]: {
-          ...state[action.payload[0]],
-          spent: action.payload[1],
-        },
+        spent: action.payload,
       };
     case SPENT_BY_DAY:
       return {
@@ -83,10 +81,7 @@ const fileActionsReducer = (state = INITIAL_STATE, action) => {
     case SHOPS_BY_MONTHS:
       return {
         ...state,
-        [action.payload[0]]: {
-          ...state[action.payload[0]],
-          shopsByMonths: action.payload[1],
-        },
+        shopsByMonths: action.payload,
       };
 
     default:

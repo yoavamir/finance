@@ -17,7 +17,7 @@ const App = () => {
       <Router history={history}>
         <Header></Header>
         <WelcomePage></WelcomePage>
-        {/* <ShopsByMonthsChart></ShopsByMonthsChart> */}
+        <ShopsByMonthsChart></ShopsByMonthsChart>
         <div className="ui divider">
           <Switch>
             <Route path="/init_data" exact component={FetchDataButton}></Route>

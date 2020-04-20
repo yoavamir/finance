@@ -27,9 +27,7 @@ export const uploadFile = (formData) => async (dispatch) => {
 };
 
 export const getTotalAmount = (filename) => async (dispatch) => {
-  const response = await fileActions.get("/total_amount", {
-    params: { filename },
-  });
+  const response = await fileActions.get("/total_amount");
   dispatch({ type: TOTAL_AMOUNT, payload: response.data });
 };
 
@@ -64,10 +62,8 @@ export const getMonthlyExpense = () => async (dispatch) => {
   dispatch({ type: MONTHLY_EXPENSE, payload: response.data });
 };
 
-export const getShopExpenseByMonth = (filename) => async (dispatch) => {
-  const response = await fileActions.get("/shops_by_months", {
-    params: { filename },
-  });
+export const getShopExpenseByMonth = () => async (dispatch) => {
+  const response = await fileActions.get("/shops_by_months");
   dispatch({ type: SHOPS_BY_MONTHS, payload: response.data });
 };
 

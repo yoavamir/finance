@@ -2,20 +2,16 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { getTotalAmount } from "../../actions";
 
-const TotalAmountSpent = ({ fileActions, filename, getTotalAmount }) => {
+const TotalAmountSpent = ({ spent, getTotalAmount }) => {
   useEffect(() => {
-    if (filename) {
-      getTotalAmount(filename);
-    }
-  }, [filename, getTotalAmount]);
+    getTotalAmount();
+  }, [getTotalAmount]);
 
   const renderAmount = () => {
-    if (!fileActions[filename]) {
+    if (!spent) {
       return <div></div>;
     }
-    return (
-      <div>Spent total of {Math.round(fileActions[filename].spent)} ₪</div>
-    );
+    return <div>Spent total of {Math.round(spent)} ₪</div>;
   };
 
   return <div>{renderAmount()}</div>;
@@ -23,8 +19,7 @@ const TotalAmountSpent = ({ fileActions, filename, getTotalAmount }) => {
 
 const mapStateToProps = (state) => {
   return {
-    fileActions: state.fileActions,
-    filename: state.fileActions.currentFile,
+    spent: state.fileActions.spent,
   };
 };
 

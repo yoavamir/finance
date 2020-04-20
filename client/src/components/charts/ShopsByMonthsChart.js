@@ -1,34 +1,36 @@
 import React, { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
 import { connect } from "react-redux";
-import { getShopExpenseByMonth } from "../../actions";
+import { getShopExpenseByMonth, setSelectedMonths } from "../../actions";
 import { getColorsForChart } from "./colors";
 import MonthsDropDown from "../dropdowns/MonthsDropDown";
 import ShopsDropDown from "../dropdowns/ShopsDropDown";
 import _ from "lodash";
 
-const data = {
-  labels: ["January", "February", "March", "April", "May", "June", "July"],
-  datasets: [
-    {
-      label: "My First dataset",
-      backgroundColor: "rgba(255,99,132,0.2)",
-      borderColor: "rgba(255,99,132,1)",
-      borderWidth: 1,
-      hoverBackgroundColor: "rgba(255,99,132,0.4)",
-      hoverBorderColor: "rgba(255,99,132,1)",
-      data: [65, 59, 80, 81, 56, 55, 40],
-    },
-    {
-      label: "2",
-      backgroundColor: "rgba(35,99,56,0.2)",
-      borderColor: "rgba(35,99,56,0.2)",
-      borderWidth: 1,
-      hoverBackgroundColor: "rgba(255,99,132,0.4)",
-      hoverBorderColor: "rgba(255,99,132,1)",
-      data: [4, 359, 65, 85, 546, 55, 40],
-    },
-  ],
+const data = (months) => {
+  return {
+    labels: months,
+    datasets: [
+      {
+        label: "My First dataset",
+        backgroundColor: "rgba(255,99,132,0.2)",
+        borderColor: "rgba(255,99,132,1)",
+        borderWidth: 1,
+        hoverBackgroundColor: "rgba(255,99,132,0.4)",
+        hoverBorderColor: "rgba(255,99,132,1)",
+        data: [65, 59, 80, 81, 56, 55, 40],
+      },
+      {
+        label: "2",
+        backgroundColor: "rgba(35,99,56,0.2)",
+        borderColor: "rgba(35,99,56,0.2)",
+        borderWidth: 1,
+        hoverBackgroundColor: "rgba(255,99,132,0.4)",
+        hoverBorderColor: "rgba(255,99,132,1)",
+        data: [4, 359, 65, 85, 546, 55, 40],
+      },
+    ],
+  };
 };
 
 const buildDataChart = (selectedMonths, datasets) => {
@@ -47,10 +49,10 @@ const baseDataSet = {
   hoverBorderColor: "rgba(255,99,132,1)",
 };
 
-const renderChart = (selectedMonths, datasets) => {
+const renderChart = (months) => {
   return (
     <Bar
-      data={buildDataChart(selectedMonths, datasets)}
+      data={data(months)}
       width={100}
       height={50}
       options={{
@@ -60,51 +62,61 @@ const renderChart = (selectedMonths, datasets) => {
   );
 };
 
+const generateArray = (n) => [...Array(n)].map((_) => n);
+
+const buildDataForShops = (selectedMonths, shop, months) => {
+  const data = _.reduce(
+    months,
+    function (result, item) {
+      result[item] = 0;
+      return result;
+    },
+    {}
+  );
+  _.map(selectedMonths, (month) => {
+    const filteredByMonth = _.filter(shop, (item) => {
+      return item[0] === month;
+    });
+    if (filteredByMonth.length > 0) {
+      data[filteredByMonth[0][0]] = filteredByMonth[0][2];
+    }
+  });
+  const finalData = _.filter(data, (item, key) => {
+    return _.includes(selectedMonths, key);
+  });
+  console.log(finalData);
+};
+
 const ShopsByMonthsChart = ({
-  filename,
-  fileActions,
+  shopsByMonths,
   getShopExpenseByMonth,
   menus,
+  months,
 }) => {
   useEffect(() => {
-    if (filename) {
-      getShopExpenseByMonth(filename);
-    }
-  }, [filename, getShopExpenseByMonth]);
+    getShopExpenseByMonth();
+  }, [getShopExpenseByMonth]);
 
   const renderBar = () => {
-    if (!fileActions[filename] || !fileActions[filename].shopsByMonths) {
+    if (!shopsByMonths) {
       return <div></div>;
     }
 
-    const labels = menus.selectedMonths;
-    const relevantValues = _.filter(
-      fileActions[filename].shopsByMonths,
-      (item) => {
-        return labels.includes(item[0]);
-      }
-    );
-
-    console.log(relevantValues);
-
-    const groupedByMonths = _.groupBy(relevantValues, (item) => {
-      return item[0];
+    const selectedShops = menus.selectedShops;
+    const relevantShops = _.filter(shopsByMonths, (item) => {
+      return selectedShops.includes(item[1]);
     });
 
-    // TODO
-    const groupedByShops = _.groupBy(relevantValues, (item) => {
+    const groupedByShops = _.groupBy(relevantShops, (item) => {
       return item[1];
     });
 
-    const datasets = _.map(groupedByMonths, (values, month) => {
-      return _.map(groupedByMonths[month], (item) => {
-        return { ...baseDataSet, ["label"]: item[1], ["data"]: [item[2]] };
-      });
-    });
-
-    const filtered_datasets = _.filter(datasets[0], (item) => {
-      return menus.selectedShops.includes(item.label);
-    });
+    console.log(groupedByShops[menus.selectedShops[0]]);
+    buildDataForShops(
+      menus.selectedMonths,
+      groupedByShops[menus.selectedShops],
+      months
+    );
 
     return (
       <div>
@@ -117,7 +129,7 @@ const ShopsByMonthsChart = ({
             <ShopsDropDown></ShopsDropDown>
           </div>
         </div>
-        {renderChart(menus.selectedMonths, filtered_datasets)}
+        {renderChart(months)}
       </div>
     );
   };
@@ -127,8 +139,8 @@ const ShopsByMonthsChart = ({
 
 const mapStateToProps = (state) => {
   return {
-    fileActions: state.fileActions,
-    filename: state.fileActions.currentFile,
+    shopsByMonths: state.fileActions.shopsByMonths,
+    months: state.fileActions.months,
     menus: state.menus,
   };
 };

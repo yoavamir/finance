@@ -21,6 +21,7 @@ const ShopsDropDown = ({ shops, setSelectedShops }) => {
       fluid
       multiple
       selection
+      search
       options={options}
       onChange={handleOnChange}
     />
