@@ -9,3 +9,5 @@ export const MONTHLY_EXPENSE = "MONTHLY_EXPENSE";
 export const SHOPS_BY_MONTHS = "SHOPS_BY_MONTHS";
 export const SET_MONTHS = "SET_MONTHS";
 export const SET_SHOPS = "SET_SHOPS";
+export const CLEAN_MONTHS = "CLEAN_MONTHS";
+export const CLEAN_SHOPS = "CLEAN_SHOPS";

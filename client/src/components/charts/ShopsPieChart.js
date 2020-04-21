@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Pie } from "react-chartjs-2";
 import { connect } from "react-redux";
-import { getShopsDistribution } from "../../actions";
+import { getShopsDistribution, cleanSelectedShops } from "../../actions";
 import { getLabelsAndValuesForChart } from "./utils";
 import { getColorsForChart } from "./colors";
 import ShopsDropDown from "../dropdowns/ShopsDropDown";
@@ -31,10 +31,15 @@ const ShopsPieChart = ({
   selectedShops,
   shopsDistribution,
   getShopsDistribution,
+  cleanSelectedShops,
 }) => {
   useEffect(() => {
     getShopsDistribution();
-  }, [getShopsDistribution]);
+
+    return () => {
+      cleanSelectedShops();
+    };
+  }, [getShopsDistribution, cleanSelectedShops]);
 
   const renderPie = () => {
     if (!shopsDistribution) {
@@ -64,6 +69,7 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { getShopsDistribution })(
-  ShopsPieChart
-);
+export default connect(mapStateToProps, {
+  getShopsDistribution,
+  cleanSelectedShops,
+})(ShopsPieChart);

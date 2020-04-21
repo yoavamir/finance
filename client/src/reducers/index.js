@@ -12,6 +12,8 @@ import {
   SHOPS_BY_MONTHS,
   SET_MONTHS,
   SET_SHOPS,
+  CLEAN_MONTHS,
+  CLEAN_SHOPS,
 } from "../actions/types";
 
 const INITIAL_STATE = {
@@ -100,6 +102,10 @@ const menusReducers = (state = MENU_INITIAL_STATE, action) => {
       return { ...state, selectedMonths: action.payload };
     case SET_SHOPS:
       return { ...state, selectedShops: action.payload };
+    case CLEAN_MONTHS:
+      return { ...state, selectedMonths: [] };
+    case CLEAN_SHOPS:
+      return { ...state, selectedShops: [] };
     default:
       return state;
   }

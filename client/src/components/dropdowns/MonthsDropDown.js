@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Dropdown } from "semantic-ui-react";
 import _ from "lodash";
+import { sortDates } from "../../components/charts/utils";
 
 import { setSelectedMonths } from "../../actions";
 
@@ -12,6 +13,7 @@ const MonthsDropDown = ({ months, setSelectedMonths }) => {
 
   const handleOnChange = (e, data) => {
     e.preventDefault();
+    console.log(sortDates(data.value));
     setSelectedMonths(data.value);
   };
 

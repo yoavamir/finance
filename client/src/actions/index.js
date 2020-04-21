@@ -12,6 +12,8 @@ import {
   SHOPS_BY_MONTHS,
   SET_MONTHS,
   SET_SHOPS,
+  CLEAN_MONTHS,
+  CLEAN_SHOPS,
 } from "./types";
 
 export const initData = () => async (dispatch) => {
@@ -26,7 +28,7 @@ export const uploadFile = (formData) => async (dispatch) => {
   history.push("/");
 };
 
-export const getTotalAmount = (filename) => async (dispatch) => {
+export const getTotalAmount = () => async (dispatch) => {
   const response = await fileActions.get("/total_amount");
   dispatch({ type: TOTAL_AMOUNT, payload: response.data });
 };
@@ -73,4 +75,12 @@ export const setSelectedMonths = (months) => {
 
 export const setSelectedShops = (shops) => {
   return { type: SET_SHOPS, payload: shops };
+};
+
+export const cleanSelectedMonths = () => {
+  return { type: CLEAN_MONTHS };
+};
+
+export const cleanSelectedShops = () => {
+  return { type: CLEAN_SHOPS };
 };

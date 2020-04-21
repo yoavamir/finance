@@ -1,7 +1,6 @@
 import React from "react";
 import { Router, Route, Switch } from "react-router-dom";
 import history from "../history";
-import FileUpload from "./FileUpload";
 import WelcomePage from "./WelcomePage";
 import Header from "./header/Header";
 import amountSpentBarChart from "./charts/AmountSpentBarChart";
@@ -9,7 +8,6 @@ import ShopsPieChart from "./charts/ShopsPieChart";
 import CategoryDoughnut from "./charts/CategoryDoughnut";
 import MonthlyExpenses from "./charts/MonthlyExpenses";
 import ShopsByMonthsChart from "./charts/ShopsByMonthsChart";
-import FetchDataButton from "./FetchDataButton";
 
 const App = () => {
   return (
@@ -17,10 +15,8 @@ const App = () => {
       <Router history={history}>
         <Header></Header>
         <WelcomePage></WelcomePage>
-        <ShopsByMonthsChart></ShopsByMonthsChart>
         <div className="ui divider">
           <Switch>
-            <Route path="/init_data" exact component={FetchDataButton}></Route>
             {/* <Route path="/upload_file" exact component={FileUpload}></Route> */}
             <Route
               path="/amount_spent_bar_chart"
@@ -41,6 +37,11 @@ const App = () => {
               path="/spent_by_month"
               exact
               component={MonthlyExpenses}
+            ></Route>
+            <Route
+              path="/shops_expenses_by_month"
+              exact
+              component={ShopsByMonthsChart}
             ></Route>
           </Switch>
         </div>

@@ -2,11 +2,9 @@ import React, { useEffect } from "react";
 import { Line } from "react-chartjs-2";
 import { connect } from "react-redux";
 import { getLabelsAndValuesForChart } from "./utils";
-import { getMonthlyExpense } from "../../actions";
+import { getMonthlyExpense, cleanSelectedMonths } from "../../actions";
 import MonthsDropDown from "../dropdowns/MonthsDropDown";
 import _ from "lodash";
-
-const generateArray = (n) => [...Array(n)].map((_) => n);
 
 const renderDataForChart = ({ labels, values }) => {
   return {
@@ -52,7 +50,21 @@ const renderDataForChart = ({ labels, values }) => {
         pointHoverBorderWidth: 2,
         pointRadius: 1,
         pointHitRadius: 10,
-        data: generateArray(19000),
+        data: [
+          22462,
+          21320,
+          22277,
+          21894,
+          22130,
+          21993,
+          22408,
+          21878,
+          22211,
+          36548,
+          22855,
+          23437,
+          24437,
+        ],
       },
     ],
   };
@@ -61,11 +73,16 @@ const renderDataForChart = ({ labels, values }) => {
 const MonthlyExpenses = ({
   monthlyExpense,
   getMonthlyExpense,
+  cleanSelectedMonths,
   selectedMonths,
 }) => {
   useEffect(() => {
     getMonthlyExpense();
-  }, [getMonthlyExpense]);
+
+    return () => {
+      cleanSelectedMonths();
+    };
+  }, [getMonthlyExpense, cleanSelectedMonths]);
 
   const renderChart = () => {
     if (!monthlyExpense) {
@@ -95,4 +112,7 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { getMonthlyExpense })(MonthlyExpenses);
+export default connect(mapStateToProps, {
+  getMonthlyExpense,
+  cleanSelectedMonths,
+})(MonthlyExpenses);

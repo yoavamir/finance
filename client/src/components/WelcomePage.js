@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import FetchDataButton from "../components/FetchDataButton";
 
 const style = {
   display: "flex",
@@ -8,13 +9,17 @@ const style = {
   justifyContent: "center",
 };
 
-const WelcomePage = (props) => {
+const WelcomePage = ({ months }) => {
   const renderText = () => {
-    if (!props.filename) {
+    if (!months.length > 0) {
       return (
-        <div style={{ margin: "10px" }}>
-          <h3 style={style}>Welcome to Yoav and Daphna finance page</h3>
-          <h4 style={style}>Upload file to start</h4>
+        <div className="ui grid">
+          <div className="eight wide column">
+            <h3>Welcome to Yoav and Daphna finance page</h3>
+          </div>
+          <div className="eight wide column">
+            <FetchDataButton></FetchDataButton>
+          </div>
         </div>
       );
     }
@@ -22,38 +27,36 @@ const WelcomePage = (props) => {
     return (
       <div style={{ margin: "10px" }}>
         <h3 style={style}>Welcome to Yoav and Daphna finance page</h3>
-        <h4 style={style}>Click buttons to get information</h4>
       </div>
     );
   };
 
   return (
-    <div style={{ margin: "20px" }}>
+    <div>
       {renderText()}
-      <Link to="/init_data" className="ui button primary">
-        Init Data
-      </Link>
-      {/* <Link to="/upload_file" className="ui button primary">
-        Upload finance file
-      </Link> */}
-      <Link to="/amount_spent_bar_chart" className="ui button primary">
-        Show amount spent bar chart
-      </Link>
-      <Link to="/shops_distribution" className="ui button primary">
-        Show shops distribution
-      </Link>
-      <Link to="/category_distribution" className="ui button primary">
-        Show category distribution
-      </Link>
-      <Link to="/spent_by_month" className="ui button primary">
-        Show Montly expenses
-      </Link>
+      <div className="ui grid">
+        <Link to="/amount_spent_bar_chart" className="ui button primary">
+          Show amount spent bar chart
+        </Link>
+        <Link to="/shops_distribution" className="ui button primary">
+          Show shops distribution
+        </Link>
+        <Link to="/category_distribution" className="ui button primary">
+          Show category distribution
+        </Link>
+        <Link to="/spent_by_month" className="ui button primary">
+          Show Montly expenses
+        </Link>
+        <Link to="/shops_expenses_by_month" className="ui button primary">
+          Show shops by months
+        </Link>
+      </div>
     </div>
   );
 };
 
 const mapStateToProps = (state) => {
-  return { filename: state.fileActions.currentFile };
+  return { months: state.fileActions.months };
 };
 
 export default connect(mapStateToProps)(WelcomePage);
