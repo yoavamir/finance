@@ -23,7 +23,7 @@ const renderDataForChart = ({ labels, values }) => {
 
 const options = {
   legend: {
-    display: true,
+    display: false,
   },
 };
 
@@ -51,7 +51,6 @@ const ShopsPieChart = ({
 
     return (
       <div>
-        filename
         <h2>Shops distribution</h2>
         <ShopsDropDown></ShopsDropDown>
         <Pie data={renderDataForChart(pieData)} options={options} />
