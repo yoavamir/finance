@@ -2,13 +2,13 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { getTotalAmount } from "../../actions";
 
-const TotalAmountSpent = ({ spent, getTotalAmount, months }) => {
+const TotalAmountSpent = ({ spent, getTotalAmount, dataFetched }) => {
   useEffect(() => {
     getTotalAmount();
   }, [getTotalAmount]);
 
   const renderAmount = () => {
-    if (months.length === 0) {
+    if (!dataFetched) {
       return <div></div>;
     }
     return <div>Spent total of {Math.round(spent)} ₪</div>;
@@ -19,8 +19,9 @@ const TotalAmountSpent = ({ spent, getTotalAmount, months }) => {
 
 const mapStateToProps = (state) => {
   return {
-    spent: state.fileActions.spent,
-    months: state.fileActions.months,
+    spent: state.data.spent,
+    months: state.data.months,
+    dataFetched: state.data.dataFetched,
   };
 };
 

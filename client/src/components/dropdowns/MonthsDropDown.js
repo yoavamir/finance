@@ -67,7 +67,7 @@ const MonthsDropDown = ({
 
 const mapStateToProps = (state) => {
   return {
-    months: state.fileActions.months,
+    months: state.data.months,
     selectedMonths: state.menus.selectedMonths,
   };
 };

@@ -166,8 +166,8 @@ const ShopsByMonthsChart = ({
 
 const mapStateToProps = (state) => {
   return {
-    shopsByMonths: state.fileActions.shopsByMonths,
-    months: state.fileActions.months,
+    shopsByMonths: state.data.shopsByMonths,
+    months: state.data.months,
     menus: state.menus,
   };
 };

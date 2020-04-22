@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import FetchDataButton from "../components/FetchDataButton";
 
-const WelcomePage = ({ months }) => {
+const WelcomePage = ({ dataFetched }) => {
   const renderText = () => {
-    if (!months.length > 0) {
+    if (!dataFetched) {
       return (
         <div>
           <div className="ui center aligned container">
@@ -39,6 +39,9 @@ const WelcomePage = ({ months }) => {
           <Link to="/shops_expenses_by_month" className="ui button primary">
             Show shops by months
           </Link>
+          <Link to="/monthly_balance" className="ui button primary">
+            Show monthly balance
+          </Link>
         </div>
       </div>
     );
@@ -59,7 +62,7 @@ const WelcomePage = ({ months }) => {
 };
 
 const mapStateToProps = (state) => {
-  return { months: state.fileActions.months };
+  return { dataFetched: state.data.dataFetched };
 };
 
 export default connect(mapStateToProps)(WelcomePage);

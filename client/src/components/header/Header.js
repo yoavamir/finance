@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import TimeRange from "./TimeRange";
 import TotalAmountSpent from "./TotalAmountSpent";
 
-const Header = (props) => {
+const Header = () => {
   return (
     <div className="ui segment secondary pointing menu">
       <Link to="/" className="item header ">

@@ -76,7 +76,7 @@ const ShopsDropDown = ({
 
 const mapStateToProps = (state) => {
   return {
-    shops: state.fileActions.shops,
+    shops: state.data.shops,
     selectedShops: state.menus.selectedShops,
   };
 };

@@ -11,7 +11,7 @@ const renderDataForChart = ({ labels, values }) => {
     labels: labels,
     datasets: [
       {
-        label: "Monthly expenses",
+        label: "Monthly Balance",
         fill: false,
         lineTension: 0.1,
         backgroundColor: "rgba(75,192,192,0.4)",
@@ -31,32 +31,11 @@ const renderDataForChart = ({ labels, values }) => {
         pointHitRadius: 10,
         data: values,
       },
-      {
-        label: "Monthly income",
-        fill: false,
-        lineTension: 0.1,
-        backgroundColor: "rgba(75,192,192,0.4)",
-        borderColor: "#00adff",
-        borderCapStyle: "butt",
-        borderDash: [],
-        borderDashOffset: 0.0,
-        borderJoinStyle: "miter",
-        pointBorderColor: "#00adff",
-        pointBackgroundColor: "#fff",
-        pointBorderWidth: 1,
-        pointHoverRadius: 5,
-        pointHoverBackgroundColor: "#00adff",
-        pointHoverBorderColor: "#00adff",
-        pointHoverBorderWidth: 2,
-        pointRadius: 1,
-        pointHitRadius: 10,
-        data: MONTHLY_INCOME,
-      },
     ],
   };
 };
 
-const MonthlyExpenses = ({
+const MonthlyBalance = ({
   monthlyExpense,
   getMonthlyExpense,
   cleanSelectedMonths,
@@ -75,13 +54,17 @@ const MonthlyExpenses = ({
       return <div></div>;
     }
 
+    const balance = _.map(monthlyExpense, (item, index) => {
+      return [item[0], MONTHLY_INCOME[index] - item[1]];
+    });
+
     const chartData = getLabelsAndValuesForChart(
-      _.filter(monthlyExpense, (item) => _.includes(selectedMonths, item[0]))
+      _.filter(balance, (item) => _.includes(selectedMonths, item[0]))
     );
 
     return (
       <div>
-        <h2>Monthly expenses</h2>
+        <h2>Monthly Balance</h2>
         <MonthsDropDown></MonthsDropDown>
         <Line data={renderDataForChart(chartData)}></Line>
       </div>
@@ -101,4 +84,4 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, {
   getMonthlyExpense,
   cleanSelectedMonths,
-})(MonthlyExpenses);
+})(MonthlyBalance);

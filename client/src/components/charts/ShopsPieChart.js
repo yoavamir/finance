@@ -25,6 +25,7 @@ const renderDataForChart = ({ labels, values }) => {
 const options = {
   legend: {
     display: true,
+    position: "left",
   },
 };
 
@@ -89,7 +90,7 @@ const ShopsPieChart = ({
 
 const mapStateToProps = (state) => {
   return {
-    shopsByMonths: state.fileActions.shopsByMonths,
+    shopsByMonths: state.data.shopsByMonths,
     selectedShops: state.menus.selectedShops,
     selectedMonths: state.menus.selectedMonths,
   };

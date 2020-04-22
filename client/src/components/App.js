@@ -8,6 +8,7 @@ import ShopsPieChart from "./charts/ShopsPieChart";
 import CategoryDoughnut from "./charts/CategoryDoughnut";
 import MonthlyExpenses from "./charts/MonthlyExpenses";
 import ShopsByMonthsChart from "./charts/ShopsByMonthsChart";
+import MonthlyBalance from "./charts/MonthlyBalance";
 
 const App = () => {
   return (
@@ -42,6 +43,11 @@ const App = () => {
               path="/shops_expenses_by_month"
               exact
               component={ShopsByMonthsChart}
+            ></Route>
+            <Route
+              path="/monthly_balance"
+              exact
+              component={MonthlyBalance}
             ></Route>
           </Switch>
         </div>
