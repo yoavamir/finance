@@ -1,15 +1,12 @@
 import React, { useEffect } from "react";
 import { Pie } from "react-chartjs-2";
 import { connect } from "react-redux";
-import { getShopsDistribution } from "../../actions";
+import { getShopExpenseByMonth, cleanSelectedShops } from "../../actions";
 import { getLabelsAndValuesForChart } from "./utils";
-import { getDynamicColors, getFixedColors } from "./colors";
-
-const getColorsForChart = (dataLength) => {
-  return dataLength > getFixedColors().length
-    ? getDynamicColors(dataLength)
-    : getFixedColors();
-};
+import { getColorsForChart } from "./colors";
+import ShopsDropDown from "../dropdowns/ShopsDropDown";
+import MonthsDropDown from "../dropdowns/MonthsDropDown";
+import _ from "lodash";
 
 const renderDataForChart = ({ labels, values }) => {
   const colors = getColorsForChart(labels.length);
@@ -25,59 +22,80 @@ const renderDataForChart = ({ labels, values }) => {
   };
 };
 
-const ShopsPieChart = (props) => {
+const options = {
+  legend: {
+    display: false,
+  },
+};
+
+const ShopsPieChart = ({
+  selectedShops,
+  shopsByMonths,
+  getShopExpenseByMonth,
+  cleanSelectedShops,
+  selectedMonths,
+}) => {
   useEffect(() => {
-    if (props.filename) {
-      props.getShopsDistribution(props.filename);
-    }
-  }, [props.filename]);
+    getShopExpenseByMonth();
+
+    return () => {
+      cleanSelectedShops();
+    };
+  }, [getShopExpenseByMonth, cleanSelectedShops]);
 
   const renderPie = () => {
-    if (
-      !props.fileActions[props.filename] ||
-      !props.fileActions[props.filename].shopsDistribution
-    ) {
+    if (!shopsByMonths) {
       return <div></div>;
     }
-    const pieData = getLabelsAndValuesForChart(
-      props.fileActions[props.filename].shopsDistribution
-    );
+
+    const monthShops = _.filter(shopsByMonths, (item) => {
+      return item[0] === selectedMonths;
+    });
+
+    const shopsAndAmount = _.map(monthShops, (item) => {
+      return [item[1], item[2]];
+    });
+
+    const relevantShops = _.map(shopsAndAmount, (item) => {
+      return item[0];
+    });
+
+    const dataForPieChart = _.filter(shopsAndAmount, (item) => {
+      return _.includes(selectedShops, item[0]);
+    });
+
+    const pieData = getLabelsAndValuesForChart(dataForPieChart);
 
     return (
       <div>
         <h2>Shops distribution</h2>
-        <Pie data={renderDataForChart(pieData)} />
+        <div className="ui grid">
+          <div className="eight wide column">
+            <MonthsDropDown multiple={false}></MonthsDropDown>
+          </div>
+          <div className="eight wide column">
+            <ShopsDropDown
+              releveantShopsForMenu={relevantShops}
+            ></ShopsDropDown>
+          </div>
+        </div>
+        <Pie data={renderDataForChart(pieData)} options={options} />
       </div>
     );
   };
 
-  const handleOnClick = (e) => {
-    e.preventDefault();
-    props.getShopsDistribution(props.filename);
-  };
-
-  return (
-    <div>
-      {/* <button
-        className="ui button primary"
-        variant="contained"
-        color="primary"
-        onClick={handleOnClick}
-      >
-        Get shops distribution
-      </button> */}
-      {renderPie()}
-    </div>
-  );
+  return <div className="ui container">{renderPie()}</div>;
 };
 
 const mapStateToProps = (state) => {
   return {
-    filename: state.fileActions.currentFile,
-    fileActions: state.fileActions,
+    shopsByMonths: state.fileActions.shopsByMonths,
+    selectedShops: state.menus.selectedShops,
+    selectedMonths: state.menus.selectedMonths,
   };
 };
 
-export default connect(mapStateToProps, { getShopsDistribution })(
-  ShopsPieChart
-);
+export default connect(mapStateToProps, {
+  getShopExpenseByMonth,
+  cleanSelectedShops,
+})(ShopsPieChart);

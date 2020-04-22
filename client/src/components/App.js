@@ -1,49 +1,51 @@
 import React from "react";
 import { Router, Route, Switch } from "react-router-dom";
 import history from "../history";
-import TotalAmountSpent from "./TotalAmountSpent";
-import FileUpload from "./FileUpload";
 import WelcomePage from "./WelcomePage";
-import Header from "./Header";
+import Header from "./header/Header";
 import amountSpentBarChart from "./charts/AmountSpentBarChart";
 import ShopsPieChart from "./charts/ShopsPieChart";
 import CategoryDoughnut from "./charts/CategoryDoughnut";
-import AmountSpentBarChart from "./charts/AmountSpentBarChart";
+import MonthlyExpenses from "./charts/MonthlyExpenses";
+import ShopsByMonthsChart from "./charts/ShopsByMonthsChart";
 
 const App = () => {
   return (
-    <div className="ui container divider">
-      <Header></Header>
-      {/* <WelcomePage></WelcomePage> */}
-      <FileUpload></FileUpload>
-      <AmountSpentBarChart></AmountSpentBarChart>
-      <ShopsPieChart></ShopsPieChart>
-      <CategoryDoughnut></CategoryDoughnut>
-      {/* <Router history={history}>
+    <div style={{ backgroundImage: "url(cool-background.png)" }}>
+      <Router history={history}>
         <Header></Header>
-        <div>
+        <div style={{ width: "100%", height: "200vh" }}>
           <Switch>
             <Route path="/" exact component={WelcomePage}></Route>
-            <Route path="/upload_file" exact component={FileUpload}></Route>
-            <Route path="/amount" exact component={TotalAmountSpent}></Route>
-            <Route
+            {/* <Route path="/upload_file" exact component={FileUpload}></Route> */}
+            {/* <Route
               path="/amount_spent_bar_chart"
               exact
               component={amountSpentBarChart}
-            ></Route>
+            ></Route> */}
             <Route
               path="/shops_distribution"
               exact
               component={ShopsPieChart}
             ></Route>
-            <Route
+            {/* <Route
               path="/category_distribution"
               exact
               component={CategoryDoughnut}
+            ></Route> */}
+            <Route
+              path="/spent_by_month"
+              exact
+              component={MonthlyExpenses}
+            ></Route>
+            <Route
+              path="/shops_expenses_by_month"
+              exact
+              component={ShopsByMonthsChart}
             ></Route>
           </Switch>
         </div>
-      </Router> */}
+      </Router>
     </div>
   );
 };

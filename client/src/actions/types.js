@@ -1,6 +1,13 @@
+export const INIT_DATA = "INIT_DATA";
 export const UPLOAD_FILE = "UPLOAD_FILE";
 export const TOTAL_AMOUNT = "TOTAL_AMOUNT";
 export const SPENT_BY_DAY = "SPENT_BY_DAY";
 export const SHOPS_DISTRIBUTION = "SHOPS_DISTRIBUTION";
 export const CATEGORY_DISTRIBUTION = "CATEGORY_DISTRIBUTION";
 export const TIME_RANGE = "TIME_RANGE";
+export const MONTHLY_EXPENSE = "MONTHLY_EXPENSE";
+export const SHOPS_BY_MONTHS = "SHOPS_BY_MONTHS";
+export const SET_MONTHS = "SET_MONTHS";
+export const SET_SHOPS = "SET_SHOPS";
+export const CLEAN_MONTHS = "CLEAN_MONTHS";
+export const CLEAN_SHOPS = "CLEAN_SHOPS";

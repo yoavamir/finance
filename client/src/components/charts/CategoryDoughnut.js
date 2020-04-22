@@ -3,13 +3,7 @@ import { Doughnut } from "react-chartjs-2";
 import { connect } from "react-redux";
 import { getCategoryDistribution } from "../../actions";
 import { getLabelsAndValuesForChart } from "./utils";
-import { getDynamicColors, getFixedColors } from "./colors";
-
-const getColorsForChart = (dataLength) => {
-  return dataLength > getFixedColors().length
-    ? getDynamicColors(dataLength)
-    : getFixedColors();
-};
+import { getColorsForChart } from "./colors";
 
 const renderDataForChart = ({ labels, values }) => {
   const colors = getColorsForChart(labels.length);
@@ -25,22 +19,23 @@ const renderDataForChart = ({ labels, values }) => {
   };
 };
 
-const CategoryDoughnut = (props) => {
+const CategoryDoughnut = ({
+  filename,
+  fileActions,
+  getCategoryDistribution,
+}) => {
   useEffect(() => {
-    if (props.filename) {
-      props.getCategoryDistribution(props.filename);
+    if (filename) {
+      getCategoryDistribution(filename);
     }
-  }, [props.filename]);
+  }, [filename, getCategoryDistribution]);
 
   const renderDounghut = () => {
-    if (
-      !props.fileActions[props.filename] ||
-      !props.fileActions[props.filename].categoryDistribution
-    ) {
+    if (!fileActions[filename] || !fileActions[filename].categoryDistribution) {
       return <div></div>;
     }
     const doughnutData = getLabelsAndValuesForChart(
-      props.fileActions[props.filename].categoryDistribution
+      fileActions[filename].categoryDistribution
     );
     return (
       <div>
@@ -50,24 +45,7 @@ const CategoryDoughnut = (props) => {
     );
   };
 
-  const handleOnClick = (e) => {
-    e.preventDefault();
-    props.getCategoryDistribution(props.filename);
-  };
-
-  return (
-    <div>
-      {/* <button
-        className="ui button primary"
-        variant="contained"
-        color="primary"
-        onClick={handleOnClick}
-      >
-        Get category distribution
-      </button> */}
-      {renderDounghut()}
-    </div>
-  );
+  return <div>{renderDounghut()}</div>;
 };
 
 const mapStateToProps = (state) => {

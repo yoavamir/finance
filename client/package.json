@@ -12,6 +12,7 @@
     "chart.js": "^2.9.3",
     "dropzone": "^5.7.0",
     "history": "^4.10.1",
+    "rcolor": "^2.0.2",
     "react": "^16.13.1",
     "react-bar-chart": "^0.1.2",
     "react-chartjs-2": "^2.9.0",
@@ -22,7 +23,8 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1",
     "redux": "^4.0.5",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "semantic-ui-react": "^0.88.2"
   },
   "scripts": {
     "start": "react-scripts start",

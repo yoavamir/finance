@@ -1,46 +1,62 @@
 import { combineReducers } from "redux";
+
 import {
+  INIT_DATA,
   UPLOAD_FILE,
   TOTAL_AMOUNT,
   SPENT_BY_DAY,
   SHOPS_DISTRIBUTION,
   CATEGORY_DISTRIBUTION,
   TIME_RANGE,
+  MONTHLY_EXPENSE,
+  SHOPS_BY_MONTHS,
+  SET_MONTHS,
+  SET_SHOPS,
+  CLEAN_MONTHS,
+  CLEAN_SHOPS,
 } from "../actions/types";
 
 const INITIAL_STATE = {
   currentFile: "",
+  months: [],
+  shops: [],
+  monthlyExpense: null,
+  shopsDistribution: null,
+  spent: null,
 };
 
 const fileActionsReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case UPLOAD_FILE:
-      return { ...state, currentFile: action.payload };
+    case INIT_DATA:
+      return {
+        ...state,
+        months: [...state.months, ...action.payload[0]],
+        shops: [...state.shops, ...action.payload[1]],
+      };
+    // case UPLOAD_FILE:
+    //   return {
+    //     ...state,
+    //     currentFile: action.payload[0],
+    //     months: [...state.months, ...action.payload[1]],
+    //     shops: [...state.shops, ...action.payload[2]],
+    //   };
     case TOTAL_AMOUNT:
-      console.log(action.payload);
       return {
         ...state,
-        [action.payload[0]]: {
-          ...state[action.payload[0]],
-          spent: action.payload[1],
-        },
+        spent: action.payload,
       };
-    case SPENT_BY_DAY:
-      console.log(action.payload);
-      return {
-        ...state,
-        [action.payload[0]]: {
-          ...state[action.payload[0]],
-          spentByDay: action.payload[1],
-        },
-      };
+    // case SPENT_BY_DAY:
+    //   return {
+    //     ...state,
+    //     [action.payload[0]]: {
+    //       ...state[action.payload[0]],
+    //       spentByDay: action.payload[1],
+    //     },
+    //   };
     case SHOPS_DISTRIBUTION:
       return {
         ...state,
-        [action.payload[0]]: {
-          ...state[action.payload[0]],
-          shopsDistribution: action.payload[1],
-        },
+        shopsDistribution: action.payload,
       };
     case CATEGORY_DISTRIBUTION:
       return {
@@ -59,7 +75,37 @@ const fileActionsReducer = (state = INITIAL_STATE, action) => {
           endDate: action.payload[2],
         },
       };
+    case MONTHLY_EXPENSE:
+      return {
+        ...state,
+        monthlyExpense: action.payload,
+      };
+    case SHOPS_BY_MONTHS:
+      return {
+        ...state,
+        shopsByMonths: action.payload,
+      };
 
+    default:
+      return state;
+  }
+};
+
+const MENU_INITIAL_STATE = {
+  selectedMonths: [],
+  selectedShops: [],
+};
+
+const menusReducers = (state = MENU_INITIAL_STATE, action) => {
+  switch (action.type) {
+    case SET_MONTHS:
+      return { ...state, selectedMonths: action.payload };
+    case SET_SHOPS:
+      return { ...state, selectedShops: action.payload };
+    case CLEAN_MONTHS:
+      return { ...state, selectedMonths: [] };
+    case CLEAN_SHOPS:
+      return { ...state, selectedShops: [] };
     default:
       return state;
   }
@@ -67,4 +113,5 @@ const fileActionsReducer = (state = INITIAL_STATE, action) => {
 
 export default combineReducers({
   fileActions: fileActionsReducer,
+  menus: menusReducers,
 });

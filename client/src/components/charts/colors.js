@@ -11,7 +11,7 @@ export const getColors = (numOfColors) => {
   return colors;
 };
 
-const dynamicColors = () => {
+export const dynamicColors = () => {
   var r = Math.floor(Math.random() * 255);
   var g = Math.floor(Math.random() * 255);
   var b = Math.floor(Math.random() * 255);
@@ -54,4 +54,10 @@ export const getFixedColors = () => {
     "#e4b855",
     "#dead31",
   ];
+};
+
+export const getColorsForChart = (dataLength) => {
+  return dataLength > getFixedColors().length
+    ? getDynamicColors(dataLength)
+    : getFixedColors();
 };
