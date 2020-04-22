@@ -7,21 +7,16 @@ const WelcomePage = ({ months }) => {
   const renderText = () => {
     if (!months.length > 0) {
       return (
-        <div
-          className="ui container"
-          style={{
-            // backgroundImage: "url(cool-background.png)",
-            width: "100%",
-            height: "50%",
-            justifyContent: "center",
-            alignItems: "center",
-            display: "flex",
-          }}
-        >
-          <h3 style={{ color: "white" }}>
-            Welcome to Yoav and Daphna finance page
-          </h3>
-          <FetchDataButton></FetchDataButton>
+        <div>
+          <div className="ui center aligned container">
+            <h3 style={{ color: "blue" }}>
+              Welcome to Yoav and Daphna finance page
+            </h3>
+          </div>
+          <br></br>
+          <div className="ui center aligned container">
+            <FetchDataButton></FetchDataButton>
+          </div>
         </div>
       );
     }

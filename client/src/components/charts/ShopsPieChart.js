@@ -24,7 +24,7 @@ const renderDataForChart = ({ labels, values }) => {
 
 const options = {
   legend: {
-    display: false,
+    display: true,
   },
 };
 
