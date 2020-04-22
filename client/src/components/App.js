@@ -11,7 +11,7 @@ import ShopsByMonthsChart from "./charts/ShopsByMonthsChart";
 
 const App = () => {
   return (
-    <div style={{ backgroundImage: "url(cool-background.png)" }}>
+    <div>
       <Router history={history}>
         <Header></Header>
         <div style={{ width: "100%", height: "200vh" }}>
