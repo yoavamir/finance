@@ -6,8 +6,15 @@ import { sortDates } from "../../components/charts/utils";
 
 import { setSelectedMonths, cleanSelectedMonths } from "../../actions";
 
-const MonthsDropDown = ({ months, setSelectedMonths, cleanSelectedMonths }) => {
+const MonthsDropDown = ({
+  months,
+  setSelectedMonths,
+  cleanSelectedMonths,
+  selectedMonths,
+  multiple = true,
+}) => {
   const [defaultValue, setDefaultValue] = useState([]);
+  const [toggle, setToggle] = useState(false);
 
   useEffect(() => {
     setSelectedMonths(defaultValue);
@@ -15,7 +22,7 @@ const MonthsDropDown = ({ months, setSelectedMonths, cleanSelectedMonths }) => {
 
   const handleToggleChange = (e, data) => {
     e.preventDefault();
-    console.log(data);
+    setToggle(data.checked);
     if (data.checked) {
       setDefaultValue(
         _.map(options, (item) => {
@@ -34,8 +41,12 @@ const MonthsDropDown = ({ months, setSelectedMonths, cleanSelectedMonths }) => {
 
   const handleOnChange = (e, data) => {
     e.preventDefault();
-    console.log(sortDates(data.value));
-    setSelectedMonths(data.value);
+    const val = multiple ? sortDates(data.value) : data.value;
+    setSelectedMonths(val);
+  };
+
+  const setMenuValue = () => {
+    return multiple ? (toggle ? defaultValue : selectedMonths) : undefined;
   };
 
   return (
@@ -44,17 +55,21 @@ const MonthsDropDown = ({ months, setSelectedMonths, cleanSelectedMonths }) => {
       <Dropdown
         placeholder="Months"
         fluid
-        multiple
+        multiple={multiple}
         selection
         options={options}
         onChange={handleOnChange}
+        value={setMenuValue()}
       />
     </div>
   );
 };
 
 const mapStateToProps = (state) => {
-  return { months: state.fileActions.months };
+  return {
+    months: state.fileActions.months,
+    selectedMonths: state.menus.selectedMonths,
+  };
 };
 
 export default connect(mapStateToProps, {

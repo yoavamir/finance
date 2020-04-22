@@ -11,28 +11,28 @@ import ShopsByMonthsChart from "./charts/ShopsByMonthsChart";
 
 const App = () => {
   return (
-    <div className="ui container divider">
+    <div style={{ backgroundImage: "url(cool-background.png)" }}>
       <Router history={history}>
         <Header></Header>
-        <WelcomePage></WelcomePage>
-        <div className="ui divider">
+        <div style={{ width: "100%", height: "200vh" }}>
           <Switch>
+            <Route path="/" exact component={WelcomePage}></Route>
             {/* <Route path="/upload_file" exact component={FileUpload}></Route> */}
-            <Route
+            {/* <Route
               path="/amount_spent_bar_chart"
               exact
               component={amountSpentBarChart}
-            ></Route>
+            ></Route> */}
             <Route
               path="/shops_distribution"
               exact
               component={ShopsPieChart}
             ></Route>
-            <Route
+            {/* <Route
               path="/category_distribution"
               exact
               component={CategoryDoughnut}
-            ></Route>
+            ></Route> */}
             <Route
               path="/spent_by_month"
               exact

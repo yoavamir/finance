@@ -102,7 +102,7 @@ const MonthlyExpenses = ({
     );
   };
 
-  return <div>{renderChart()}</div>;
+  return <div className="ui container">{renderChart()}</div>;
 };
 
 const mapStateToProps = (state) => {

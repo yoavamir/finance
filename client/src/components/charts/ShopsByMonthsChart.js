@@ -157,7 +157,11 @@ const ShopsByMonthsChart = ({
     return renderMenus();
   }
 
-  return <div>{renderBar(menus, months, shopsByMonths)}</div>;
+  return (
+    <div className="ui container">
+      {renderBar(menus, months, shopsByMonths)}
+    </div>
+  );
 };
 
 const mapStateToProps = (state) => {

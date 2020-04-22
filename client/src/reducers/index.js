@@ -33,26 +33,26 @@ const fileActionsReducer = (state = INITIAL_STATE, action) => {
         months: [...state.months, ...action.payload[0]],
         shops: [...state.shops, ...action.payload[1]],
       };
-    case UPLOAD_FILE:
-      return {
-        ...state,
-        currentFile: action.payload[0],
-        months: [...state.months, ...action.payload[1]],
-        shops: [...state.shops, ...action.payload[2]],
-      };
+    // case UPLOAD_FILE:
+    //   return {
+    //     ...state,
+    //     currentFile: action.payload[0],
+    //     months: [...state.months, ...action.payload[1]],
+    //     shops: [...state.shops, ...action.payload[2]],
+    //   };
     case TOTAL_AMOUNT:
       return {
         ...state,
         spent: action.payload,
       };
-    case SPENT_BY_DAY:
-      return {
-        ...state,
-        [action.payload[0]]: {
-          ...state[action.payload[0]],
-          spentByDay: action.payload[1],
-        },
-      };
+    // case SPENT_BY_DAY:
+    //   return {
+    //     ...state,
+    //     [action.payload[0]]: {
+    //       ...state[action.payload[0]],
+    //       spentByDay: action.payload[1],
+    //     },
+    //   };
     case SHOPS_DISTRIBUTION:
       return {
         ...state,

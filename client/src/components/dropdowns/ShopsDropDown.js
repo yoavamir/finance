@@ -21,9 +21,11 @@ const ShopsDropDown = ({
   shops,
   setSelectedShops,
   cleanSelectedShops,
+  selectedShops,
   releveantShopsForMenu = null,
 }) => {
   const [defaultValue, setDefaultValue] = useState([]);
+  const [toggle, setToggle] = useState(false);
 
   useEffect(() => {
     setSelectedShops(defaultValue);
@@ -38,7 +40,7 @@ const ShopsDropDown = ({
 
   const handleToggleChange = (e, data) => {
     e.preventDefault();
-    console.log(data);
+    setToggle(data.checked);
     if (data.checked) {
       setDefaultValue(
         _.map(options, (item) => {
@@ -46,9 +48,13 @@ const ShopsDropDown = ({
         })
       );
     } else {
-      setDefaultValue([]);
+      setDefaultValue(selectedShops);
       cleanSelectedShops();
     }
+  };
+
+  const setMenuValue = () => {
+    return toggle ? defaultValue : selectedShops;
   };
 
   return (
@@ -62,15 +68,17 @@ const ShopsDropDown = ({
         search
         options={options}
         onChange={handleOnChange}
-        value={defaultValue}
-        clearable={true}
+        value={setMenuValue()}
       />
     </div>
   );
 };
 
 const mapStateToProps = (state) => {
-  return { shops: state.fileActions.shops };
+  return {
+    shops: state.fileActions.shops,
+    selectedShops: state.menus.selectedShops,
+  };
 };
 
 export default connect(mapStateToProps, {

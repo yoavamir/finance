@@ -14,11 +14,6 @@ const Header = (props) => {
           <TotalAmountSpent></TotalAmountSpent>
         </div>
       </div>
-      <div className="item right menu">
-        <div>
-          <TimeRange></TimeRange>
-        </div>
-      </div>
     </div>
   );
 };
