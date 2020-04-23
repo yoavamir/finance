@@ -57,9 +57,21 @@ const ShopsDropDown = ({
     return toggle ? defaultValue : selectedShops;
   };
 
+  const renderToggle = () => {
+    // if (!multiple) {
+    //   return <Checkbox disabled toggle onChange={handleToggleChange} />;
+    // }
+    return (
+      <div>
+        <h4>Select all</h4>
+        <Checkbox toggle onChange={handleToggleChange}></Checkbox>
+      </div>
+    );
+  };
+
   return (
     <div>
-      <Checkbox toggle onChange={handleToggleChange} />
+      {renderToggle()}
       <Dropdown
         placeholder="Shops"
         fluid
