@@ -49,9 +49,16 @@ const MonthsDropDown = ({
     return multiple ? (toggle ? defaultValue : selectedMonths) : undefined;
   };
 
+  const renderToggle = () => {
+    if (!multiple) {
+      return <Checkbox disabled toggle onChange={handleToggleChange} />;
+    }
+    return <Checkbox toggle onChange={handleToggleChange} />;
+  };
+
   return (
     <div>
-      <Checkbox toggle onChange={handleToggleChange} />
+      {renderToggle()}
       <Dropdown
         placeholder="Months"
         fluid
