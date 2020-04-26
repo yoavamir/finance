@@ -9,6 +9,10 @@ import CategoryDoughnut from "./charts/CategoryDoughnut";
 import MonthlyExpenses from "./charts/MonthlyExpenses";
 import ShopsByMonthsChart from "./charts/ShopsByMonthsChart";
 import MonthlyBalance from "./charts/MonthlyBalance";
+import FileUpload from "./steps/uploadFileStep/FileUpload";
+import UploadFileStep from "./steps/uploadFileStep";
+import Steps from "../components/steps/Steps";
+import IncomeStep from "../components/steps/incomeStep";
 
 const App = () => {
   return (
@@ -18,7 +22,10 @@ const App = () => {
         <div style={{ width: "100%", height: "200vh" }}>
           <Switch>
             <Route path="/" exact component={WelcomePage}></Route>
-            {/* <Route path="/upload_file" exact component={FileUpload}></Route> */}
+            <Route path="/files" exact component={UploadFileStep}></Route>
+            <Route path="/upload_file" exact component={FileUpload}></Route>
+            <Route path="/steps" exact component={Steps}></Route>
+            <Route path="/income_form" exact component={IncomeStep}></Route>
             {/* <Route
               path="/amount_spent_bar_chart"
               exact

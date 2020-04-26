@@ -1,19 +1,20 @@
 import React from "react";
 import { connect } from "react-redux";
 import { initData } from "../actions";
-import { Icon } from "semantic-ui-react";
+import { Icon, Button } from "semantic-ui-react";
 
-const FetchDataButton = (props) => {
+const FetchDataButton = ({ message, initData }) => {
   return (
-    <div
-      className="ui primary button huge"
+    <Button
+      primary
+      size="huge"
       onClick={() => {
-        props.initData();
+        initData();
       }}
     >
-      Get Started
+      {message}
       <Icon name="right arrow" />
-    </div>
+    </Button>
   );
 };
 

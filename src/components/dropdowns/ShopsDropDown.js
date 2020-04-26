@@ -23,6 +23,7 @@ const ShopsDropDown = ({
   cleanSelectedShops,
   selectedShops,
   releveantShopsForMenu = null,
+  multiple = true,
 }) => {
   const [defaultValue, setDefaultValue] = useState([]);
   const [toggle, setToggle] = useState(false);
@@ -57,10 +58,15 @@ const ShopsDropDown = ({
     return toggle ? defaultValue : selectedShops;
   };
 
-  const renderToggle = () => {
-    // if (!multiple) {
-    //   return <Checkbox disabled toggle onChange={handleToggleChange} />;
-    // }
+  const renderToggle = (multiple) => {
+    if (!multiple) {
+      return (
+        <div>
+          <h4>toggle disabled</h4>
+          <Checkbox toggle disabled onChange={handleToggleChange}></Checkbox>
+        </div>
+      );
+    }
     return (
       <div>
         <h4>Select all</h4>
@@ -71,7 +77,7 @@ const ShopsDropDown = ({
 
   return (
     <div>
-      {renderToggle()}
+      {renderToggle(multiple)}
       <Dropdown
         placeholder="Shops"
         fluid

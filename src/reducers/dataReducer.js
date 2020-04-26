@@ -1,4 +1,6 @@
 import {
+  UPLOAD_FILE,
+  GET_FILES,
   INIT_DATA,
   TOTAL_AMOUNT,
   SHOPS_DISTRIBUTION,
@@ -12,6 +14,7 @@ const INITIAL_STATE = {
   dataFetched: false,
   months: [],
   shops: [],
+  files: [],
   monthlyExpense: null,
   shopsDistribution: null,
   spent: null,
@@ -26,13 +29,16 @@ export const dataReducers = (state = INITIAL_STATE, action) => {
         months: [...state.months, ...action.payload[0]],
         shops: [...state.shops, ...action.payload[1]],
       };
-    // case UPLOAD_FILE:
-    //   return {
-    //     ...state,
-    //     currentFile: action.payload[0],
-    //     months: [...state.months, ...action.payload[1]],
-    //     shops: [...state.shops, ...action.payload[2]],
-    //   };
+    case GET_FILES:
+      return {
+        ...state,
+        files: action.payload,
+      };
+    case UPLOAD_FILE:
+      return {
+        ...state,
+        files: [...state.files, action.payload],
+      };
     case TOTAL_AMOUNT:
       return {
         ...state,

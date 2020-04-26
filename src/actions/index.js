@@ -2,7 +2,9 @@ import dataFetcherBase from "../apis/dataFetcherBase";
 import history from "../history";
 import {
   INIT_DATA,
+  INIT_EXPENSE_DATA,
   UPLOAD_FILE,
+  GET_FILES,
   TOTAL_AMOUNT,
   SPENT_BY_DAY,
   SHOPS_DISTRIBUTION,
@@ -14,10 +16,18 @@ import {
   SET_SHOPS,
   CLEAN_MONTHS,
   CLEAN_SHOPS,
+  IN_REGISTRATION,
+  SET_ACTIVE_STEP,
+  SET_MONTH_INCOME,
 } from "./types";
 
+export const initExpenseData = (formData) => async (dispatch) => {
+  const response = await dataFetcherBase.post("/init_expense_data", formData);
+  dispatch({ type: INIT_EXPENSE_DATA, payload: response.data });
+};
+
 export const initData = () => async (dispatch) => {
-  const response = await dataFetcherBase.post("/init_data");
+  const response = await dataFetcherBase.get("/init_data");
   dispatch({ type: INIT_DATA, payload: response.data });
   history.push("/");
 };
@@ -25,7 +35,12 @@ export const initData = () => async (dispatch) => {
 export const uploadFile = (formData) => async (dispatch) => {
   const response = await dataFetcherBase.post("/upload_file", formData);
   dispatch({ type: UPLOAD_FILE, payload: response.data });
-  history.push("/");
+  history.push("files/");
+};
+
+export const getFiles = () => async (dispatch) => {
+  const response = await dataFetcherBase.get("/get_files");
+  dispatch({ type: GET_FILES, payload: response.data });
 };
 
 export const getTotalAmount = () => async (dispatch) => {
@@ -83,4 +98,16 @@ export const cleanSelectedMonths = () => {
 
 export const cleanSelectedShops = () => {
   return { type: CLEAN_SHOPS };
+};
+
+export const setRegirsritaion = () => {
+  return { type: IN_REGISTRATION };
+};
+
+export const setActiveStep = (step) => {
+  return { type: SET_ACTIVE_STEP, payload: step };
+};
+
+export const setMonthIncome = (month, income) => {
+  return { type: SET_MONTH_INCOME, payload: { month, income } };
 };

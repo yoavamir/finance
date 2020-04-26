@@ -7,6 +7,7 @@ import { getColorsForChart } from "./colors";
 import ShopsDropDown from "../dropdowns/ShopsDropDown";
 import MonthsDropDown from "../dropdowns/MonthsDropDown";
 import _ from "lodash";
+import { Header, Grid } from "semantic-ui-react";
 
 const renderDataForChart = ({ labels, values }) => {
   const colors = getColorsForChart(labels.length);
@@ -27,6 +28,40 @@ const options = {
     display: true,
     position: "left",
   },
+};
+
+const render = (relevantShops, pieData) => {
+  return (
+    <Grid textAlign="center">
+      <Grid.Row>
+        <Grid.Column width={16}>
+          <Header>
+            <Header.Content>Show shops distribution</Header.Content>
+            <Header.Subheader>
+              Choose 1 month, and any number of shops to show the disribution
+            </Header.Subheader>
+          </Header>
+        </Grid.Column>
+      </Grid.Row>
+      <Grid.Row>
+        <Grid.Column width={8}>
+          <div>
+            <MonthsDropDown multiple={false}></MonthsDropDown>
+          </div>
+        </Grid.Column>
+        <Grid.Column width={8}>
+          <div>
+            <ShopsDropDown
+              releveantShopsForMenu={relevantShops}
+            ></ShopsDropDown>
+          </div>
+        </Grid.Column>
+      </Grid.Row>
+      <Grid.Row>
+        <Pie data={renderDataForChart(pieData)} options={options} />
+      </Grid.Row>
+    </Grid>
+  );
 };
 
 const ShopsPieChart = ({
@@ -67,22 +102,7 @@ const ShopsPieChart = ({
 
     const pieData = getLabelsAndValuesForChart(dataForPieChart);
 
-    return (
-      <div>
-        <h2>Shops distribution</h2>
-        <div className="ui grid">
-          <div className="eight wide column">
-            <MonthsDropDown multiple={false}></MonthsDropDown>
-          </div>
-          <div className="eight wide column">
-            <ShopsDropDown
-              releveantShopsForMenu={relevantShops}
-            ></ShopsDropDown>
-          </div>
-        </div>
-        <Pie data={renderDataForChart(pieData)} options={options} />
-      </div>
-    );
+    return render(relevantShops, pieData);
   };
 
   return <div className="ui container">{renderPie()}</div>;

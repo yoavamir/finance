@@ -5,6 +5,7 @@ import _ from "lodash";
 import { sortDates } from "../../components/charts/utils";
 
 import { setSelectedMonths, cleanSelectedMonths } from "../../actions";
+// import { Toggle } from "./Toggle";
 
 const MonthsDropDown = ({
   months,
@@ -54,7 +55,7 @@ const MonthsDropDown = ({
       return (
         <div>
           <h4>toggle disabled</h4>
-          <Checkbox toggle onChange={handleToggleChange}></Checkbox>
+          <Checkbox toggle disabled onChange={handleToggleChange}></Checkbox>
         </div>
       );
     }
