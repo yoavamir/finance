@@ -5,6 +5,8 @@ import { getLabelsAndValuesForChart, MONTHLY_INCOME } from "./utils";
 import { getMonthlyExpense, cleanSelectedMonths } from "../../actions";
 import MonthsDropDown from "../dropdowns/MonthsDropDown";
 import _ from "lodash";
+import { Container } from "semantic-ui-react";
+import MyLoader from "../MyLoader";
 
 const renderDataForChart = ({ labels, values }) => {
   return {
@@ -51,7 +53,7 @@ const MonthlyBalance = ({
 
   const renderChart = () => {
     if (!monthlyExpense) {
-      return <div></div>;
+      return <MyLoader message="Loading mothly balance"></MyLoader>;
     }
 
     const balance = _.map(monthlyExpense, (item, index) => {
@@ -63,15 +65,15 @@ const MonthlyBalance = ({
     );
 
     return (
-      <div>
+      <Container>
         <h2>Monthly Balance</h2>
         <MonthsDropDown></MonthsDropDown>
         <Line data={renderDataForChart(chartData)}></Line>
-      </div>
+      </Container>
     );
   };
 
-  return <div className="ui container">{renderChart()}</div>;
+  return <Container>{renderChart()}</Container>;
 };
 
 const mapStateToProps = (state) => {

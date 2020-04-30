@@ -9,7 +9,7 @@ const Header = ({ dataFetched, inRegistration }) => {
   if (dataFetched) {
     return (
       <div className="ui segment secondary pointing menu">
-        <Link to="/" className="item header ">
+        <Link to="/home" className="item header ">
           <div className="ui blue sub header">Finance</div>
         </Link>
         <div className="item center menu">

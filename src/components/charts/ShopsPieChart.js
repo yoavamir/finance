@@ -8,6 +8,7 @@ import ShopsDropDown from "../dropdowns/ShopsDropDown";
 import MonthsDropDown from "../dropdowns/MonthsDropDown";
 import _ from "lodash";
 import { Header, Grid } from "semantic-ui-react";
+import MyLoader from "../MyLoader";
 
 const renderDataForChart = ({ labels, values }) => {
   const colors = getColorsForChart(labels.length);
@@ -58,7 +59,7 @@ const render = (relevantShops, pieData) => {
           </div>
         </Grid.Column>
       </Grid.Row>
-      <Grid.Row columns={1} doubled>
+      <Grid.Row columns={1}>
         <Pie data={renderDataForChart(pieData)} options={options} />
       </Grid.Row>
     </Grid>
@@ -82,7 +83,7 @@ const ShopsPieChart = ({
 
   const renderPie = () => {
     if (!shopsByMonths) {
-      return <div></div>;
+      return <MyLoader message="Loading shops data"></MyLoader>;
     }
 
     const monthShops = _.filter(shopsByMonths, (item) => {

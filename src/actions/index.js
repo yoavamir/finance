@@ -29,7 +29,7 @@ export const initExpenseData = (formData) => async (dispatch) => {
 export const initData = () => async (dispatch) => {
   const response = await dataFetcherBase.get("/init_data");
   dispatch({ type: INIT_DATA, payload: response.data });
-  history.push("/");
+  history.push("/home");
 };
 
 export const uploadFile = (formData) => async (dispatch) => {

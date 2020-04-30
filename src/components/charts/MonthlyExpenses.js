@@ -5,6 +5,7 @@ import { getLabelsAndValuesForChart, MONTHLY_INCOME } from "./utils";
 import { getMonthlyExpense, cleanSelectedMonths } from "../../actions";
 import MonthsDropDown from "../dropdowns/MonthsDropDown";
 import _ from "lodash";
+import MyLoader from "../MyLoader";
 
 const renderDataForChart = ({ labels, values }) => {
   return {
@@ -72,7 +73,7 @@ const MonthlyExpenses = ({
 
   const renderChart = () => {
     if (!monthlyExpense) {
-      return <div></div>;
+      return <MyLoader message="Loading monthly expense"></MyLoader>;
     }
 
     const chartData = getLabelsAndValuesForChart(

@@ -10,6 +10,7 @@ import { dynamicColors } from "./colors";
 import MonthsDropDown from "../dropdowns/MonthsDropDown";
 import ShopsDropDown from "../dropdowns/ShopsDropDown";
 import _ from "lodash";
+import MyLoader from "../MyLoader";
 
 const buildDataChart = (selectedMonths, newDatasets) => {
   const datasetsToShow = newDatasets === undefined ? [] : newDatasets;
@@ -154,7 +155,7 @@ const ShopsByMonthsChart = ({
   }, [getShopExpenseByMonth, cleanSelectedMonths, cleanSelectedShops]);
 
   if (!shopsByMonths || !menus.selectedShops || !menus.selectedMonths) {
-    return renderMenus();
+    return <MyLoader message="Loading shops and months"></MyLoader>;
   }
 
   return (
