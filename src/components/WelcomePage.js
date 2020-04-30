@@ -5,8 +5,6 @@ import FetchDataButton from "../components/FetchDataButton";
 import StartProcessButton from "../components/StartProcessButton";
 import { Header, Grid, Container, Responsive } from "semantic-ui-react";
 
-const COLUMN_WIDTH = 4;
-
 const WelcomePage = ({ dataFetched }) => {
   const renderText = () => {
     if (!dataFetched) {
