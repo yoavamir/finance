@@ -13,11 +13,11 @@ const WelcomePage = ({ dataFetched }) => {
           <Header as="h2" color="blue" textAlign="center">
             Welcome to Yoav and Daphna finance page
           </Header>
-          <Grid textAlign="center">
-            <Grid.Column width={6}>
+          <Grid textAlign="center" columns={2}>
+            <Grid.Column>
               <StartProcessButton></StartProcessButton>
             </Grid.Column>
-            <Grid.Column width={6}>
+            <Grid.Column>
               <FetchDataButton message="Start with mock data!"></FetchDataButton>
             </Grid.Column>
           </Grid>
@@ -31,7 +31,7 @@ const WelcomePage = ({ dataFetched }) => {
               Click any of the buttons to show data about you money!
             </Header.Content>
           </Header>
-          <Grid columns={4}>
+          <Grid doubling columns={4}>
             {/* <Grid.Row> */}
             <Grid.Column>
               <Link to="/shops_distribution" className="ui button primary">
