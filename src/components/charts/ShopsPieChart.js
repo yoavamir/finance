@@ -27,6 +27,7 @@ const options = {
   legend: {
     display: true,
     position: "left",
+    maintainAspectRatio: false,
   },
 };
 
