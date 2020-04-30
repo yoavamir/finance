@@ -11,7 +11,7 @@ const Steps = ({ activeStep }) => {
   return (
     <Step.Group ordered>
       <Link to="/files">
-        <Step active={isActiveStep(1)}>
+        <Step active={isActiveStep(1)} completed={isActiveStep(2)}>
           <Step.Content>
             <Step.Title>Upload Files</Step.Title>
             <Step.Description>Choose your shipping options</Step.Description>

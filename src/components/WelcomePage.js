@@ -33,32 +33,29 @@ const WelcomePage = ({ dataFetched }) => {
               Click any of the buttons to show data about you money!
             </Header.Content>
           </Header>
-          <Grid>
-            <Grid.Row>
-              <Grid.Column width={COLUMN_WIDTH}>
-                <Link to="/shops_distribution" className="ui button primary">
-                  Show shops distribution
-                </Link>
-              </Grid.Column>
-              <Grid.Column width={COLUMN_WIDTH}>
-                <Link to="/spent_by_month" className="ui button primary">
-                  Show Montly expenses
-                </Link>
-              </Grid.Column>
-              <Grid.Column width={COLUMN_WIDTH}>
-                <Link
-                  to="/shops_expenses_by_month"
-                  className="ui button primary"
-                >
-                  Show shops by months
-                </Link>
-              </Grid.Column>
-              <Grid.Column width={COLUMN_WIDTH}>
-                <Link to="/monthly_balance" className="ui button primary">
-                  Show monthly balance
-                </Link>
-              </Grid.Column>
-            </Grid.Row>
+          <Grid columns={4}>
+            {/* <Grid.Row> */}
+            <Grid.Column>
+              <Link to="/shops_distribution" className="ui button primary">
+                Show shops distribution
+              </Link>
+            </Grid.Column>
+            <Grid.Column>
+              <Link to="/spent_by_month" className="ui button primary">
+                Show Montly expenses
+              </Link>
+            </Grid.Column>
+            <Grid.Column>
+              <Link to="/shops_expenses_by_month" className="ui button primary">
+                Show shops by months
+              </Link>
+            </Grid.Column>
+            <Grid.Column>
+              <Link to="/monthly_balance" className="ui button primary">
+                Show monthly balance
+              </Link>
+            </Grid.Column>
+            {/* </Grid.Row> */}
           </Grid>
         </Container>
       );
