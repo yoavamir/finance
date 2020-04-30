@@ -57,7 +57,7 @@ const render = (relevantShops, pieData) => {
           </div>
         </Grid.Column>
       </Grid.Row>
-      <Grid.Row>
+      <Grid.Row columns={1} doubled>
         <Pie data={renderDataForChart(pieData)} options={options} />
       </Grid.Row>
     </Grid>

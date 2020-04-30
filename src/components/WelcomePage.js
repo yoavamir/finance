@@ -10,10 +10,15 @@ const WelcomePage = ({ dataFetched }) => {
     if (!dataFetched) {
       return (
         <Container>
-          <Header as="h2" color="blue" textAlign="center">
+          <Header
+            as="h2"
+            color="blue"
+            textAlign="center"
+            style={{ margin: "15px" }}
+          >
             Welcome to Yoav and Daphna finance page
           </Header>
-          <Grid textAlign="center" columns={2}>
+          <Grid textAlign="center" doubling columns={2}>
             <Grid.Column>
               <StartProcessButton></StartProcessButton>
             </Grid.Column>
@@ -28,7 +33,7 @@ const WelcomePage = ({ dataFetched }) => {
         <Container>
           <Header as="h2" textAlign="center">
             <Header.Content>
-              Click any of the buttons to show data about you money !
+              Click any of the buttons to show data about you money!
             </Header.Content>
           </Header>
           <Grid doubling columns={4}>
