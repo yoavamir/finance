@@ -28,7 +28,7 @@ const WelcomePage = ({ dataFetched }) => {
         <Container>
           <Header as="h2" textAlign="center">
             <Header.Content>
-              Click any of the buttons to show data about you money!
+              Click any of the buttons to show data about you money !
             </Header.Content>
           </Header>
           <Grid doubling columns={4}>
